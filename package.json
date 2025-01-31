@@ -18,5 +18,8 @@
   "workspaces": [
     "backend",
     "frontend"
-  ]
+  ],
+  "dependencies": {
+    "react-router-dom": "^7.1.4"
+  }
 }
