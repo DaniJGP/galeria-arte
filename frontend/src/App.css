@@ -15,6 +15,14 @@ body {
   flex-direction: column;
 }
 
+.zen-dots-regular {
+    font-family: "Zen Dots", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+
+
 .home {
   flex: 1;
   width: 100%;
