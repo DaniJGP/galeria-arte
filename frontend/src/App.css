@@ -103,6 +103,10 @@ body {
   margin-top: auto;
 }
 
+.min-view-height {
+    min-height: calc( 100vh - 58px - 201px);
+  }
+
 @media (max-width: 1024px) {
   .product-card {
     width: 45%;
