@@ -1,0 +1,29 @@
+.navbar {
+  width: 100%;
+  background: var(--secondary-blue);
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar .nav-links li {
+  display: inline;
+}
+
+.navbar .nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+  color: var(--highlight-accent);
+}
