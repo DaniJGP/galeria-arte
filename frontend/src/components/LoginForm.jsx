@@ -18,9 +18,11 @@ const LoginForm = () => {
           </label>
         </div>
 
-        <button type="button" className="btn btn-primary btn-block mb-4">
-          Ingresa
-        </button>
+        <div className="text-center">
+            <button type="button" className="btn btn-primary btn-block mb-4">
+              Ingresa
+            </button>
+        </div>
       </form>
     </div>
   
