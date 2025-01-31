@@ -13,7 +13,7 @@ const Footer = () => {
         </ul>
       </div>
       <div className="footer-section">
-        <h3>TÉRMINOS Y CONDICIONES</h3>
+        <h3>TÉRMINOS Y CONDICIONES...</h3>
         <ul>
           <li><a href="/terms">Link 1</a></li>
           <li><a href="/privacy">Link 2</a></li>
@@ -22,7 +22,7 @@ const Footer = () => {
       </div>
       <div className="footer-section">
         <h3>CONTACTO</h3>
-        <p>Info: info@example.com</p>
+        <p>Info: info@example.com.</p>
         <div className="social-media">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
