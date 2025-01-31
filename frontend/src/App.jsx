@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Gallery from './pages/Gallery';
-import ArtworkDetail from './components/ProductDetail';
+import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
@@ -17,7 +17,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/artwork/:id" element={<ArtworkDetail />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />

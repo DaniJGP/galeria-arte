@@ -1,18 +1,25 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
+  const { id } = useParams();
+
+  const product = {
+    id: id,
+    title: `Obra ${id}`,
+    author: `Autor ${id}`,
+    price: `$${id}00`,
+    image: require(`../assets/images/obra${id}.jpg`).default,
+    description: `Descripción detallada de la obra ${id}.`
+  };
+
   return (
     <div className="product-detail">
-      <div className="image-section">
-        <img src="" alt="Obra" />
-      </div>
-      <div className="details-section">
-        <h2>Nombre de la obra</h2>
-        <p>Autor</p>
-        <p>Descripción</p>
-        <p>Precio</p>
-        <button>Añadir al carrito</button>
-      </div>
+      <img src={product.image} alt={product.title} />
+      <h2>{product.title}</h2>
+      <p>{product.author}</p>
+      <p>{product.price}</p>
+      <p>{product.description}</p>
     </div>
   );
 };
