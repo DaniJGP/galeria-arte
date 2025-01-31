@@ -1,0 +1,16 @@
+.navbar {
+  background: var(--secondary-blue);
+}
+
+#myBrand {
+  font-family: "Zen Dots", serif;
+}
+
+#navbarLinks a {
+  font-family: "Inter", sans-serif;
+  color: var(--neutral-light);
+}
+
+#navbarLinks a:hover {
+  color: var(--highlight-accent);
+}

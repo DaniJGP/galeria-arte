@@ -9,8 +9,6 @@ import Cart from './components/Cart';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import './App.css';
-import './assets/css/styles.css';
-
 
 const App = () => {
   return (

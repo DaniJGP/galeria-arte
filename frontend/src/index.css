@@ -6,6 +6,9 @@
   --highlight-accent: #ffc857;
   --error-color: #d9534f;
   --success-color: #4ae250;
+
+  --brand-font: "Zen Dots", sans-serif;
+  --regular-font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
