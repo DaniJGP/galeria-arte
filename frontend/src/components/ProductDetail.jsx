@@ -4,7 +4,7 @@ import './ProductDetail.css';
 const ProductDetail = () => {
   const { id } = useParams();
   const product = {
-    id: id,
+    id,
     title: `Obra ${id}`,
     author: `Autor ${id}`,
     price: `$${id}00`,
