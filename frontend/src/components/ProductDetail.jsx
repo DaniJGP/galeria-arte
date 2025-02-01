@@ -1,15 +1,13 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
   const { id } = useParams();
-
   const product = {
     id: id,
     title: `Obra ${id}`,
     author: `Autor ${id}`,
     price: `$${id}00`,
-    image: require(`../assets/images/obra${id}.jpg`).default,
+    image: `/images/obra${id}.jpg`,
     description: `Descripción detallada de la obra ${id}.`
   };
 
