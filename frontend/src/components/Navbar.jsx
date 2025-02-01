@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -5,10 +6,10 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-md" data-bs-theme="dark">
       <div className="container-lg">
         <div className="navbar-brand">
-          <img src="../assets/images/logo.png" alt="Galería de Arte" id="myBrand" b/>
+          <img src="../assets/images/logo.png" alt="Galería de Arte" id="myBrand" />
         </div>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarLinks"
@@ -16,39 +17,33 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse text-center" id="navbarLinks">
-          <div class="navbar-nav ms-3 me-auto">
-            <a class="nav-link" href="#">
-              Login
-            </a>
-            <a class="nav-link" href="#">
-              Registro
-            </a>
-            <a class="nav-link" href="#">
-              Tienda
-            </a>
+          <div className="navbar-nav ms-3 me-auto">
+            <Link className="nav-link" to="/login">Login</Link>
+            <Link className="nav-link" to="/registro">Registro</Link>
+            <Link className="nav-link" to="/">Tienda</Link>
           </div>
           <div className="navbar-nav gap-2">
-            <form class="d-flex" role="search">
+            <form className="d-flex" role="search">
               <input
-                class="form-control me-2"
+                className="form-control me-2"
                 type="search"
                 placeholder="Buscar"
                 aria-label="Search"
                 data-bs-theme="light"
               />
-              <button class="btn btn-dark" type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
+              <button className="btn btn-dark" type="submit">
+                <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
-            <a href="#" className="nav-link">
-              <i class="fa-solid fa-user fa-lg"></i>
-            </a>
-            <a href="#" className="nav-link">
-              <i class="fa-solid fa-cart-shopping fa-lg"></i>
-            </a>
+            <Link to="#" className="nav-link">
+              <i className="fa-solid fa-user fa-lg"></i>
+            </Link>
+            <Link to="#" className="nav-link">
+              <i className="fa-solid fa-cart-shopping fa-lg"></i>
+            </Link>
           </div>
         </div>
       </div>
