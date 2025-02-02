@@ -13,7 +13,7 @@ const Footer = () => {
         </ul>
       </div>
       <div className="footer-section">
-        <h3>TÉRMINOS Y CONDICIONES</h3>
+        <h3>TÉRMINOS Y CONDICIONES.</h3>
         <ul>
           <li><a href="/terms">Link 1</a></li>
           <li><a href="/privacy">Link 2</a></li>
