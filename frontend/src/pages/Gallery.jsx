@@ -4,9 +4,9 @@ import '../App.css';
 
 const Gallery = () => {
   const products = [
-    { id: 1, title: "Obra 1", author: "Autor 1", price: "$100", image: require("../assets/images/obra1.jpg").default },
-    { id: 2, title: "Obra 2", author: "Autor 2", price: "$200", image: require("../assets/images/obra2.jpg").default },
-    { id: 3, title: "Obra 3", author: "Autor 3", price: "$300", image: require("../assets/images/obra3.jpg").default }
+    { id: 1, title: "Obra 1", author: "Autor 1", price: "$100", image: "/images/obra1.jpg" },
+    { id: 2, title: "Obra 2", author: "Autor 2", price: "$200", image: "/images/obra2.jpg" },
+    { id: 3, title: "Obra 3", author: "Autor 3", price: "$300", image: "/images/obra3.jpg" },
   ];
 
   return (

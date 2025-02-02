@@ -9,9 +9,10 @@ import Cart from './components/Cart';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import './App.css';
+import { CartProvider } from './context/CartContext';
 
-const App = () => {
-  return (
+const App = () => (
+  <CartProvider>
     <Router>
       <Navbar />
       <Routes>
@@ -24,7 +25,7 @@ const App = () => {
       </Routes>
       <Footer />
     </Router>
-  );
-};
+  </CartProvider>
+);
 
 export default App;

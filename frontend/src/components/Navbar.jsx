@@ -41,9 +41,9 @@ const Navbar = () => {
             <Link to="#" className="nav-link">
               <i className="fa-solid fa-user fa-lg"></i>
             </Link>
-            <Link to="#" className="nav-link">
-              <i className="fa-solid fa-cart-shopping fa-lg"></i>
-            </Link>
+            <Link to="/cart" className="nav-link">
+  <i className="fa-solid fa-cart-shopping fa-lg"></i>
+</Link>
           </div>
         </div>
       </div>
