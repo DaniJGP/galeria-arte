@@ -122,11 +122,11 @@ const products = [
   }
 ];
 
-// TODO hacerlas async al conectar al backend
-export const getProductById = (id) => {
+// TODO: conectar al backend con fetch
+export const getProductById = async (id) => {
   return products.find(product => product.id === parseInt(id));
 };
 
-export const getProducts = () => {
+export const getProducts = async () => {
   return products;
 }

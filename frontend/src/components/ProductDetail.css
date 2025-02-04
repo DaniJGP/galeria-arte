@@ -3,12 +3,12 @@
 }
 
 .product-detail-img {
-  max-width: 400px;
-  max-height: 500px;
+  max-width: 576px;
+  max-height: 80vh;
   border-radius: 2px;
 }
 
 .product-detail-img:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   transition: all ease-in 200ms;
 }
