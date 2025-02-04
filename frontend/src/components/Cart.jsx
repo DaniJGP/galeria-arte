@@ -16,10 +16,10 @@ const Cart = () => {
       ) : (
         cart.map((item) => (
           <div key={item.id} className="cart-item">
-            <img src={item.image} alt={item.title} style={{ width: '80px' }} />
+            <img src={item.img_url} alt={item.nombre} style={{ width: '80px' }} />
             <div>
-              <h4>{item.title}</h4>
-              <p>{item.price}</p>
+              <h4>{item.nombre}</h4>
+              <p>${item.precio}</p>
               <button onClick={() => handleRemove(item)} className="btn btn-danger">
                 Eliminar
               </button>
