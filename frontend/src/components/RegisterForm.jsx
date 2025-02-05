@@ -18,8 +18,6 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //console.log('Registro enviado');
-    //console.table(formData);
     setFormData(emptyForm);
   };
 

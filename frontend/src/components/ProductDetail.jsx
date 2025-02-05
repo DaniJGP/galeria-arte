@@ -5,7 +5,7 @@ import './ProductDetail.css';
 const ProductDetail = () => {
   const { id } = useParams();
   const { dispatch } = useCart();
-  const navigate = useNavigate(); // Hook para la navegación
+  const navigate = useNavigate(); 
 
   const product = {
     id,
@@ -18,7 +18,7 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
-    navigate('/cart'); // Redirigir al carrito
+    navigate('/cart'); 
   };
 
   return (
