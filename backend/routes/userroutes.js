@@ -4,8 +4,8 @@ const authenticateToken = require('../middleware/authmiddleware');
 const { registerUser, loginUser, getUser, updateUser, deleteUser, getAllUsers, getUserById } = require('../controllers/userController');
 
 // Rutas para registrar e iniciar sesión
-router.post('/register', registerUser);  // Registrar un nuevo usuario
-router.post('/login', loginUser);        // Iniciar sesión
+router.post('/register', registerUser);  
+router.post('/login', loginUser);    
 
 
 router.get('/', authenticateToken, getAllUsers);  

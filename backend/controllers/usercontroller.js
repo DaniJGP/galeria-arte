@@ -60,7 +60,7 @@ exports.loginUser = async (req, res) => {
 // Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.findAll();  // Ajusta este método según tu modelo y ORM
+    const users = await User.findAll();  
     res.json(users);
   } catch (error) {
     console.error(error);
@@ -83,10 +83,9 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-// Obtener detalles del usuario autenticado
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.findByPk(req.user.id); // Asegúrate de que el middleware de autenticación esté configurado
+    const user = await User.findByPk(req.user.id);
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
