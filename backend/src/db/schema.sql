@@ -13,7 +13,7 @@ CREATE TABLE users (
 
 CREATE TABLE obras (
   id SERIAL PRIMARY KEY,
-  estado VARCHAR(20) NOT NULL,
+  estado VARCHAR(20) NOT NULL DEFAULT 'disponible',
   nombre VARCHAR(255) NOT NULL,
   autor VARCHAR(255) NOT NULL,
   precio DECIMAL(10, 2) NOT NULL,
