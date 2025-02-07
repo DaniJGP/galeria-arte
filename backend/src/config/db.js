@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const pool = new Pool();
 
-const initializeDB = async () => {
+const initializeDB = async (pool) => {
   const schemaPath = path.resolve(__dirname, '../db/schema.sql');
   const seedPath = path.resolve(__dirname, '../db/seed.sql');
   await createDatabase(process.env.PGDATABASE);
@@ -14,6 +14,4 @@ const initializeDB = async () => {
   await executeSQL(pool, seedPath);
 };
 
-initializeDB();
-
-module.exports = pool;
+module.exports = { pool, initializeDB };
