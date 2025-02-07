@@ -3,7 +3,6 @@ const authRouter = require('./routes/authRoutes');
 const artRouter = require('./routes/authRoutes');
 const userRounter = require('./routes/userRoutes');
 
-
 const app = express();
 
 // Middlewares
