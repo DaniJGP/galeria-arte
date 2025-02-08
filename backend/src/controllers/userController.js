@@ -51,9 +51,13 @@ exports.loginUser = async (req, res) => {
     }
 
     // Generar el token JWT
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
+    const token = jwt.sign(
+      { email: user.email, rol: user.rol },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1h',
+      }
+    );
 
     res.json({ message: 'Inicio de sesión exitoso', token });
   } catch (error) {
@@ -65,7 +69,7 @@ exports.loginUser = async (req, res) => {
 // Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await User.getAll();
     res.json(users);
   } catch (error) {
     console.error(error);
@@ -77,7 +81,7 @@ exports.getAllUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findByPk(id);
+    const user = await User.getById(id);
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
@@ -88,9 +92,10 @@ exports.getUserById = async (req, res) => {
   }
 };
 
+// Obtener datos del propio usuario
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.findByPk(req.user.id);
+    const user = await User.getByEmail(req.user.email);
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
@@ -101,20 +106,15 @@ exports.getUser = async (req, res) => {
   }
 };
 
-// Actualizar datos del usuario
+// TODO Actualizar datos del propio usuario
 exports.updateUser = async (req, res) => {
-  const { username, email } = req.body;
+
   try {
-    const user = await User.findByPk(req.user.id);
+    const user = await User.getByEmail(req.user.email);
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
+    //
     }
-
-    user.username = username || user.username;
-    user.email = email || user.email;
-
-    await user.save();
-
     res.json({ message: 'Usuario actualizado correctamente', user });
   } catch (error) {
     console.error(error);
@@ -123,18 +123,13 @@ exports.updateUser = async (req, res) => {
 };
 
 // Eliminar un usuario
-exports.deleteUser = async (req, res) => {
-  try {
-    const user = await User.findByPk(req.user.id);
-    if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
-    }
+exports.deleteUserById = async (req, res) => {
+  // TODO
+  return;
+};
 
-    await user.destroy();
-
-    res.json({ message: 'Usuario eliminado correctamente' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al eliminar el usuario' });
-  }
+// Actualizar un usuario
+exports.updateUserById = async (req, res) => {
+  // TODO
+  return;
 };

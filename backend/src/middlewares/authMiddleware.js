@@ -13,4 +13,11 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-module.exports = authenticateToken;
+const requireAdmin = (req, res, next) => {
+  if (req.user.rol !== 'administrador') {
+    return res.sendStatus(403);
+  }
+  next();
+};
+
+module.exports = { authenticateToken, requireAdmin };

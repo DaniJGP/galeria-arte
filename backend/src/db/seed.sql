@@ -146,7 +146,7 @@ INSERT INTO
 VALUES
   (
     'admin@mail.com',
-    'qwerty',
+    '$2a$10$WYbZqr4Star/Sk4regdxhuGIxNWu6MQaVRyHUfIEPv86MGr1MsXQe', -- 12345678
     'administrador',
     'Admin',
     'Istrador',
@@ -154,8 +154,8 @@ VALUES
     'Calle verdadera 987'
   ),
   (
-    'usuario@mail.com',
-    '123456',
+    'srajuanita@mail.com',
+    '$2a$10$fQBNz.h9J.NYN.d9cacAUuCgi4Ya9QeHBt/S84wbIvOWBRm94ckQ.', -- abcdefgh
     'cliente',
     'Juana',
     'Pérez',

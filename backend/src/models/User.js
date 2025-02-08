@@ -18,19 +18,9 @@ exports.create = async ({
   return result.rows[0];
 };
 
-exports.getUserById = async (id) => {
-  const client = await pool.connect();
-  try {
-    const result = await client.query('SELECT * FROM users WHERE id = $1', [
-      id,
-    ]);
-    return result.rows[0];
-  } catch (error) {
-    console.error('Error obteniendo el usuario:', error);
-    throw error;
-  } finally {
-    client.release();
-  }
+exports.getById = async (id) => {
+  const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+  return result.rows[0];
 };
 
 exports.getByEmail = async (email) => {
@@ -38,4 +28,9 @@ exports.getByEmail = async (email) => {
     email,
   ]);
   return result.rows[0];
+};
+
+exports.getAll = async () => {
+  const result = await pool.query('SELECT * FROM users');
+  return result.rows;
 };
