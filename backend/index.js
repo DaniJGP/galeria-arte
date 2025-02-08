@@ -1,10 +1,13 @@
 const app = require('./src/app.js');
-const port = 3000;
+const { initializeDB, pool } = require('./src/config/db.js');
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+const startApp = async () => {
+  const PORT = process.env.PORT || 3000;
+  await initializeDB(pool);
+  app.listen(PORT, () => {
+    console.log(`Servidor disponible en http://localhost:${PORT}`);
+  });
+};
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+startApp();
+
