@@ -7,10 +7,9 @@ const { registerUser, loginUser, getUser, updateUser, deleteUser, getAllUsers, g
 router.post('/register', registerUser);  
 router.post('/login', loginUser);    
 
-
+// Rutas que requieren JWT
 router.get('/', authenticateToken, getAllUsers);  
 router.get('/:id', authenticateToken, getUserById); 
-
 
 router.get('/me', authenticateToken, getUser);    
 router.put('/me', authenticateToken, updateUser);  

@@ -4,13 +4,13 @@ const jwt = require('jsonwebtoken');
 
 // Registrar un nuevo usuario
 exports.registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { email, password, nombre, apellido, telefono, direccion } = req.body;
 
   try {
     // Verificar si el usuario ya existe
-    const userExists = await User.findOne({ where: { email } });
+    const userExists = await User.getByEmail(email);
     if (userExists) {
-      return res.status(400).json({ message: 'El usuario ya existe' });
+      res.status(400).json({ message: 'El usuario ya existe' });
     }
 
     // Hashear la contraseña
@@ -18,12 +18,15 @@ exports.registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Crear un nuevo usuario
-    const newUser = await User.create({ username, email, password: hashedPassword });
-
-    // Generar el token JWT
-    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(201).json({ message: 'Usuario registrado con éxito', token });
+    await User.create({
+      email,
+      password: hashedPassword,
+      nombre,
+      apellido,
+      telefono,
+      direccion,
+    });
+    res.status(201).json({ message: 'Usuario registrado con éxito' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error al registrar el usuario' });
@@ -36,7 +39,7 @@ exports.loginUser = async (req, res) => {
 
   try {
     // Buscar el usuario por email
-    const user = await User.findOne({ where: { email } });
+    const user = await User.getByEmail(email);
     if (!user) {
       return res.status(400).json({ message: 'Credenciales incorrectas' });
     }
@@ -48,7 +51,9 @@ exports.loginUser = async (req, res) => {
     }
 
     // Generar el token JWT
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
 
     res.json({ message: 'Inicio de sesión exitoso', token });
   } catch (error) {
@@ -60,7 +65,7 @@ exports.loginUser = async (req, res) => {
 // Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.findAll();  
+    const users = await User.findAll();
     res.json(users);
   } catch (error) {
     console.error(error);

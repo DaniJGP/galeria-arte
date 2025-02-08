@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middleware/authmiddleware');
-const { getAllArt, getArtById, createArt, updateArt, deleteArt } = require('../controllers/artcontroller');
+const authenticateToken = require('../middlewares/authMiddleware');
+const { getAllArt, getArtById, createArt, updateArt, deleteArt } = require('../controllers/artController');
 
 router.get('/', getAllArt);
 router.get('/:id', getArtById);
