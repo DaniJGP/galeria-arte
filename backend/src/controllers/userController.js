@@ -10,7 +10,7 @@ exports.registerUser = async (req, res) => {
     // Verificar si el usuario ya existe
     const userExists = await User.getByEmail(email);
     if (userExists) {
-      res.status(400).json({ message: 'El usuario ya existe' });
+      res.status(400).json({ message: 'El correo ya está registrado' });
     }
 
     // Hashear la contraseña
@@ -29,7 +29,7 @@ exports.registerUser = async (req, res) => {
     res.status(201).json({ message: 'Usuario registrado con éxito' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error al registrar el usuario' });
+    res.status(500);
   }
 };
 
@@ -47,7 +47,7 @@ exports.loginUser = async (req, res) => {
     // Verificar la contraseña
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Credenciales incorrectas' });
+      return res.status(401).json({ message: 'Credenciales incorrectas' });
     }
 
     // Generar el token JWT
