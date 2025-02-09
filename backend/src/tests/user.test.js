@@ -6,7 +6,10 @@ describe('Rutas de la API de Usuarios', () => {
   let token;
 
   beforeAll(async () => {
-    // Limpieza de usuarios antes de cada prueba
+    // Asegurar que la base de datos está inicializada
+    await initializeDB(pool);
+
+    // Limpieza de la tabla users antes de cada prueba
     await pool.query('DELETE FROM users WHERE email IN ($1, $2)', ['usuario@prueba.com', 'nuevo@prueba.com']);
 
     const response = await request(app)
@@ -34,6 +37,8 @@ describe('Rutas de la API de Usuarios', () => {
         password: '123456'
       });
 
+    console.log('Respuesta al iniciar sesión:', response.body);
+
     expect(response.status).toBe(200);
     expect(response.body.token).toBeDefined();
     token = response.body.token;
@@ -46,6 +51,8 @@ describe('Rutas de la API de Usuarios', () => {
         email: 'usuario@prueba.com',
         password: 'wrongpassword'
       });
+
+    console.log('Respuesta a credenciales incorrectas:', response.body);
 
     expect(response.status).toBe(401);
     expect(response.body.message).toBe('Credenciales incorrectas');
@@ -61,7 +68,6 @@ describe('Rutas de la API de Usuarios', () => {
         apellido: 'Lopez'
       });
 
-    // Agregar log para ver la respuesta en caso de error
     console.log('Respuesta al registrar usuario:', response.body);
 
     expect(response.status).toBe(201);
@@ -78,6 +84,8 @@ describe('Rutas de la API de Usuarios', () => {
         apellido: 'Pérez'
       });
 
+    console.log('Respuesta a usuario duplicado:', response.body);
+
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('El correo ya está registrado');
   });
@@ -87,6 +95,8 @@ describe('Rutas de la API de Usuarios', () => {
       .get('/api/users/me')
       .set('Authorization', `Bearer ${token}`);
 
+    console.log('Respuesta al obtener usuario:', response.body);
+
     expect(response.status).toBe(200);
   });
 
@@ -94,6 +104,8 @@ describe('Rutas de la API de Usuarios', () => {
     const response = await request(app)
       .get('/api/users/me')
       .set('Authorization', `Bearer ${token}`);
+
+    console.log('Respuesta con datos del usuario:', response.body);
 
     expect(response.status).toBe(200);
     expect(response.body.user).toBeDefined();
