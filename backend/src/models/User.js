@@ -34,3 +34,32 @@ exports.getAll = async () => {
   const result = await pool.query('SELECT * FROM users');
   return result.rows;
 };
+
+exports.deleteById = async (id) => {
+  const result = await pool.query(
+    'DELETE FROM users WHERE id = $1 RETURNING *',
+    [id]
+  );
+  return result.rows[0];
+};
+
+exports.updateById = async ({
+  id,
+  email,
+  rol,
+  nombre,
+  apellido,
+  telefono = null,
+  direccion = null,
+}) => {
+  const result = await pool.query(
+    `UPDATE users SET
+      email = $1, rol = $2, nombre = $3, apellido = $4, telefono = $5, direccion = $6
+     WHERE id = $7
+     RETURNING *;
+    `,
+    [email, rol, nombre, apellido, telefono, direccion, id]
+  );
+  return result.rows[0];
+};
+
