@@ -1,19 +1,10 @@
 const express = require('express');
+const { login, register, getUsers } = require('../controllers/userController');
+
 const router = express.Router();
-const authenticateToken = require('../middlewares/authMiddleware');
-const { registerUser, loginUser, getUser, updateUser, deleteUser, getAllUsers, getUserById } = require('../controllers/userController');
 
-// Rutas para registrar e iniciar sesión
-router.post('/register', registerUser);  
-router.post('/login', loginUser);    
-
-
-router.get('/', authenticateToken, getAllUsers);  
-router.get('/:id', authenticateToken, getUserById); 
-
-
-router.get('/me', authenticateToken, getUser);    
-router.put('/me', authenticateToken, updateUser);  
-router.delete('/me', authenticateToken, deleteUser); 
+router.post('/login', login);
+router.post('/register', register);
+router.get('/', getUsers); 
 
 module.exports = router;

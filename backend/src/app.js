@@ -1,16 +1,18 @@
 const express = require('express');
-const authRouter = require('./routes/authRoutes');
-const artRouter = require('./routes/authRoutes');
-const userRounter = require('./routes/userRoutes');
+const cors = require('cors');
+const userRoutes = require('./routes/userRoutes');
+const artworkRoutes = require('./routes/artRoutes');
 
 const app = express();
 
-// Middlewares
+app.use(cors());
+app.use(express.json());
 
+app.use('/api/users', userRoutes);  
+app.use('/api/artworks', artworkRoutes);  
 
-// Rutas
-app.use('/auth', authRouter);
-app.use('/products', artRouter);
-app.use('/users', userRounter);
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ message: 'API está funcionando correctamente' });
+});
 
 module.exports = app;

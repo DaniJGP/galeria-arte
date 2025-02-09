@@ -1,135 +1,60 @@
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { pool } = require('../config/db');
 
-// Registrar un nuevo usuario
-exports.registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
-
-  try {
-    // Verificar si el usuario ya existe
-    const userExists = await User.findOne({ where: { email } });
-    if (userExists) {
-      return res.status(400).json({ message: 'El usuario ya existe' });
-    }
-
-    // Hashear la contraseña
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Crear un nuevo usuario
-    const newUser = await User.create({ username, email, password: hashedPassword });
-
-    // Generar el token JWT
-    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(201).json({ message: 'Usuario registrado con éxito', token });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al registrar el usuario' });
-  }
-};
-
-// Iniciar sesión de usuario
-exports.loginUser = async (req, res) => {
+// Función de login
+async function login(req, res) {
   const { email, password } = req.body;
 
   try {
-    // Buscar el usuario por email
-    const user = await User.findOne({ where: { email } });
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    const user = result.rows[0];
+
     if (!user) {
-      return res.status(400).json({ message: 'Credenciales incorrectas' });
+      return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
 
-    // Verificar la contraseña
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Credenciales incorrectas' });
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
 
-    // Generar el token JWT
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.json({ message: 'Inicio de sesión exitoso', token });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al iniciar sesión' });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || 'secret_key', { expiresIn: '1h' });
+    return res.status(200).json({ token });
+  } catch (err) {
+    return res.status(500).json({ error: 'Error en el servidor' });
   }
-};
+}
 
-// Obtener todos los usuarios
-exports.getAllUsers = async (req, res) => {
+// Función de registro
+async function register(req, res) {
+  const { email, password, nombre, apellido } = req.body;
+
   try {
-    const users = await User.findAll();  
-    res.json(users);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al obtener los usuarios' });
-  }
-};
-
-// Obtener un usuario por ID
-exports.getUserById = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const user = await User.findByPk(id);
-    if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
-    }
-    res.json(user);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al obtener el usuario' });
-  }
-};
-
-exports.getUser = async (req, res) => {
-  try {
-    const user = await User.findByPk(req.user.id);
-    if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
-    }
-    res.json({ user });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al obtener el usuario' });
-  }
-};
-
-// Actualizar datos del usuario
-exports.updateUser = async (req, res) => {
-  const { username, email } = req.body;
-  try {
-    const user = await User.findByPk(req.user.id);
-    if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+    const existingUser = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ error: 'El correo ya está registrado' });
     }
 
-    user.username = username || user.username;
-    user.email = email || user.email;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await pool.query('INSERT INTO users (email, password, nombre, apellido) VALUES ($1, $2, $3, $4)', [email, hashedPassword, nombre, apellido]);
 
-    await user.save();
-
-    res.json({ message: 'Usuario actualizado correctamente', user });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al actualizar el usuario' });
+    return res.status(201).json({ message: 'Usuario registrado con éxito' });
+  } catch (err) {
+    return res.status(500).json({ error: 'Error en el servidor' });
   }
-};
+}
 
-// Eliminar un usuario
-exports.deleteUser = async (req, res) => {
+// Función para obtener todos los usuarios
+async function getUsers(req, res) {
   try {
-    const user = await User.findByPk(req.user.id);
-    if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
-    }
-
-    await user.destroy();
-
-    res.json({ message: 'Usuario eliminado correctamente' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al eliminar el usuario' });
+    const result = await pool.query('SELECT * FROM users');
+    return res.status(200).json(result.rows);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Error en el servidor' });
   }
-};
+}
+
+module.exports = { login, register, getUsers };
+

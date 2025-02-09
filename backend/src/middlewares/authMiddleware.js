@@ -1,16 +1,18 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jwt-simple');
 
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+const authenticate = (req, res, next) => {
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(403).json({ message: 'Acceso denegado' });
+  }
 
-  if (!token) return res.sendStatus(401);
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
+  try {
+    const decoded = jwt.decode(token, process.env.JWT_SECRET);
+    req.userId = decoded.userId;
     next();
-  });
+  } catch (error) {
+    return res.status(400).json({ message: 'Token inválido' });
+  }
 };
 
-module.exports = authenticateToken;
+module.exports = { authenticate };
