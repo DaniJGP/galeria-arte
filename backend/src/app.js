@@ -1,15 +1,16 @@
 const express = require('express');
-const artRouter = require('./routes/artRoutes');
-const userRounter = require('./routes/userRoutes');
+const artRoutes = require('./routes/artRoutes');
+const userRoutes = require('./routes/userRoutes');
+const cors = require('cors')
 
 const app = express();
 
 // Middlewares
 app.use(express.json());
-
+app.use(cors());
 
 // Rutas
-app.use('/products', artRouter);
-app.use('/users', userRounter);
+app.use('/api/artworks', artRoutes);
+app.use('/api/users', userRoutes);
 
 module.exports = app;

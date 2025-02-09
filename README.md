@@ -7,7 +7,6 @@ Galería arte es una plataforma web para la compraventa de obras de arte. La apl
 - **Frontend:**
   - React
   - React Router
-  - React Bootstrap
   - Bootstrap
 - **Backend:**
   - Node.js
@@ -15,3 +14,18 @@ Galería arte es una plataforma web para la compraventa de obras de arte. La apl
   - pg (PostgreSQL)
   - jsonwebtoken
   - bcryptjs
+  - jest
+
+## Uso
+
+La carpeta backend necesita un archivo `.env` con las siguientes variables que se deben reemplazar de acuerdo a la implementación local de tu PostgreSQL
+
+```text
+PORT=<puerto del servidor> 
+PGUSER=postgres
+PGPASSWORD=postgres
+PGHOST=localhost
+PGPORT=5432
+PGDATABASE=galeria_arte
+JWT_SECRET=<contraseña segura>
+```
