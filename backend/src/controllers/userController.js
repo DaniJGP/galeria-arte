@@ -108,12 +108,11 @@ exports.getUser = async (req, res) => {
 
 // TODO Actualizar datos del propio usuario
 exports.updateUser = async (req, res) => {
-
   try {
     const user = await User.getByEmail(req.user.email);
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
-    //
+      //
     }
     res.json({ message: 'Usuario actualizado correctamente', user });
   } catch (error) {
@@ -124,12 +123,43 @@ exports.updateUser = async (req, res) => {
 
 // Eliminar un usuario
 exports.deleteUserById = async (req, res) => {
-  // TODO
+  const { id } = req.params;
+  try {
+    const user = await User.deleteById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al eliminar el usuario' });
+  }
   return;
 };
 
 // Actualizar un usuario
 exports.updateUserById = async (req, res) => {
+  const { id } = req.params;
+  const { email, rol, nombre, apellido, telefono, direccion } = req.body;
+  try {
+    const user = await User.updateById({
+      id,
+      email,
+      rol,
+      nombre,
+      apellido,
+      telefono,
+      direccion,
+    });
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+    return res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el usuario' });
+  }
+  return;
   // TODO
   return;
 };
