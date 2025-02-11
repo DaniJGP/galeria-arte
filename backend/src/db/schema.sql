@@ -30,7 +30,7 @@ CREATE TABLE obras (
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   user_id INTEGER,
-  estado VARCHAR,
+  estado VARCHAR DEFAULT 'pendiente',
   precio_total INTEGER,
   direccion TEXT,
   created_at TIMESTAMP DEFAULT NOW(),
