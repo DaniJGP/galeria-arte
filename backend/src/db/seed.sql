@@ -1,6 +1,5 @@
 INSERT INTO
   obras (
-    id,
     nombre,
     autor,
     precio,
@@ -13,7 +12,6 @@ INSERT INTO
   )
 VALUES
   (
-    1,
     'Reflejos del Alma',
     'Sofía Morales',
     1200.00,
@@ -25,7 +23,6 @@ VALUES
     60
   ),
   (
-    2,
     'Silencio Urbano',
     'Javier López',
     900.00,
@@ -37,7 +34,6 @@ VALUES
     70
   ),
   (
-    3,
     'Luz y Sombras',
     'Carla Fernández',
     1500.00,
@@ -49,7 +45,6 @@ VALUES
     70
   ),
   (
-    4,
     'El Vuelo del Tiempo',
     'Hugo Ramírez',
     750.00,
@@ -61,7 +56,6 @@ VALUES
     60
   ),
   (
-    5,
     'Jardín de Sueños',
     'Laura Gómez',
     1400.00,
@@ -73,7 +67,6 @@ VALUES
     120
   ),
   (
-    6,
     'Memorias del Horizonte',
     'Diego Torres',
     2500.00,
@@ -85,7 +78,6 @@ VALUES
     90
   ),
   (
-    7,
     'Entre Líneas',
     'Marta Sánchez',
     600.00,
@@ -97,7 +89,6 @@ VALUES
     65
   ),
   (
-    8,
     'Ecos del Pasado',
     'Roberto Castillo',
     1800.00,
@@ -109,7 +100,6 @@ VALUES
     110
   ),
   (
-    9,
     'Rostros del Alma',
     'Isabel Ruiz',
     2000.00,
@@ -121,7 +111,6 @@ VALUES
     50
   ),
   (
-    10,
     'Sombras Fugaces',
     'Andrés Vega',
     800.00,

@@ -4,12 +4,12 @@ exports.create = async ({
   nombre,
   autor,
   precio,
-  img_url,
-  descripcion,
-  categoria,
-  tecnica,
-  alto,
-  ancho,
+  img_url = null,
+  descripcion = null,
+  categoria = null,
+  tecnica = null,
+  alto = null,
+  ancho = null,
 }) => {
   const result = await pool.query(
     `INSERT INTO obras (
@@ -65,7 +65,8 @@ exports.updateById = async ({
       categoria = $7,
       tecnica = $8,
       alto = $9,
-      ancho = $10
+      ancho = $10,
+      updated_at = NOW()
     WHERE
       id = $11 RETURNING *
     `,
@@ -73,4 +74,3 @@ exports.updateById = async ({
   );
   return result.rows[0];
 };
-
