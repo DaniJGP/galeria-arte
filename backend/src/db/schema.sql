@@ -7,8 +7,8 @@ CREATE TABLE users (
   apellido VARCHAR(50) NOT NULL,
   telefono VARCHAR(20),
   direccion TEXT,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMPZ DEFAULT NOW(),
+  updated_at TIMESTAMPZ DEFAULT NOW()
 );
 
 CREATE TABLE obras (
@@ -23,8 +23,8 @@ CREATE TABLE obras (
   tecnica VARCHAR(255),
   alto SMALLINT,
   ancho SMALLINT,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMPZ DEFAULT NOW(),
+  updated_at TIMESTAMPZ DEFAULT NOW()
 );
 
 CREATE TABLE orders (
@@ -33,8 +33,8 @@ CREATE TABLE orders (
   estado VARCHAR,
   precio_total INTEGER,
   direccion TEXT,
-  created_at TIMESTAMP,
-  updated_at TIMESTAMP,
+  created_at TIMESTAMPZ DEFAULT NOW(),
+  updated_at TIMESTAMPZ DEFAULT NOW(),
   CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
