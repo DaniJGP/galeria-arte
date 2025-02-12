@@ -1,11 +1,6 @@
 const { pool } = require('../config/db');
 
-exports.create = async ({
-  user_id,
-  precio_total,
-  direccion,
-  obras_id = [1, 2],
-}) => {
+exports.create = async ({ user_id, precio_total, direccion, obras_id }) => {
   // Crea la orden de compra en la tabla correspondiente
   const result = await pool.query(
     `INSERT INTO orders (
@@ -15,9 +10,10 @@ exports.create = async ({
     [user_id, precio_total, direccion]
   );
 
-  const order = result.rows[0]
-  // Lee el array de IDs de obras y usa el order.id recién retornado para
-  // TODO probar con un array real
+  const order = result.rows[0];
+
+  // Lee el array con IDs de obras compradas y el order.id recién retornado
+  // y crea las filas de intersección en la tabla 'order_obras'
   for (const obra_id of obras_id) {
     await pool.query(
       `
@@ -30,4 +26,34 @@ exports.create = async ({
     );
   }
   return { order };
+};
+
+exports.getById = async (orderId) => {
+  const result = await pool.query(`SELECT * FROM orders WHERE id = $1`, [
+    orderId,
+  ]);
+  return { order: result.rows[0] };
+};
+
+exports.getAllByUserId = async (userId) => {
+  const result = await pool.query(`SELECT * FROM orders WHERE user_id = $1`, [
+    userId,
+  ]);
+  return { orders: result.rows };
+};
+
+exports.cancelById = async (orderId) => {
+  const result = await pool.query(
+    `UPDATE orders SET estado = 'cancelada' WHERE id = $1 RETURNING *`,
+    [orderId]
+  );
+  return { order: result.rows[0] };
+};
+
+exports.checkIfBelongsToUser = async (orderId, userId) => {
+  const result = await pool.query(
+    `SELECT EXISTS( SELECT 1 FROM orders WHERE id = $1 AND user_id = $2 )`,
+    [orderId, userId]
+  );
+  return result.rows[0].exists;
 };
