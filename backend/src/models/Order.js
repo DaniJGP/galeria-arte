@@ -28,6 +28,11 @@ exports.create = async ({ user_id, precio_total, direccion, obras_id }) => {
   return { order };
 };
 
+exports.getAll = async () => {
+  const result = await pool.query(`SELECT * FROM orders`);
+  return { orders: result.rows };
+};
+
 exports.getById = async (orderId) => {
   const result = await pool.query(`SELECT * FROM orders WHERE id = $1`, [
     orderId,
@@ -44,8 +49,16 @@ exports.getAllByUserId = async (userId) => {
 
 exports.cancelById = async (orderId) => {
   const result = await pool.query(
-    `UPDATE orders SET estado = 'cancelada' WHERE id = $1 RETURNING *`,
+    `UPDATE orders SET estado = 'cancelada', updated_at = NOW() WHERE id = $1 RETURNING *`,
     [orderId]
+  );
+  return { order: result.rows[0] };
+};
+
+exports.updateById = async (orderId, estado) => {
+  const result = await pool.query(
+    `UPDATE orders SET estado = $1, updated_at = NOW() WHERE id = $2 RETURNING *`,
+    [estado, orderId]
   );
   return { order: result.rows[0] };
 };

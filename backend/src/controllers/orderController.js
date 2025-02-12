@@ -42,7 +42,7 @@ exports.getUserOrders = async (req, res) => {
 exports.getUserOrder = async (req, res) => {
   try {
     const user = await User.getByEmail(req.user.email);
-    const orderId = req.params.id;
+    const { id: orderId } = req.params;
 
     if (!user) {
       res.status(404).json({ error: 'Usuario no encontrado' });
@@ -79,9 +79,41 @@ exports.cancelUserOrder = async (req, res) => {
       message: 'Orden de compra cancelada correctamente',
       data: cancelledOrder,
     });
-    
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al cancelar la orden' });
+  }
+};
+
+exports.getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.getAll();
+    return res.json({ data: orders });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error al obtener las órdenes' });
+  }
+};
+
+exports.updateOrder = async (req, res) => {
+  const { id: orderId } = req.params;
+  const { estado } = req.body;
+  try {
+    const updatedOrder = await Order.updateById(orderId, estado);
+    return res.json({ data: updatedOrder });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error al actualiza la orden' });
+  }
+};
+
+exports.getOrder = async (req, res) => {
+  try {
+    const { id: orderId } = req.params;
+    const order = await Order.getById(orderId);
+    res.json({ data: order });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener orden' });
   }
 };
