@@ -31,12 +31,13 @@ const AuthProvider = ({ children }) => {
         throw new Error(data.message);
       }
   
-      // Guardar usuario en el contexto
+      // Guardar usuario en el contexto, incluyendo el rol
       login({
         token: data.token,
         nombre: data.nombre,
         apellido: data.apellido,
         email: data.email,
+        role: data.role, // Asegúrate de que el backend te devuelva el rol
       });
     } catch (error) {
       console.error("Error en login:", error.message);
@@ -49,7 +50,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, handleLogin }}>
       {children}
     </AuthContext.Provider>
   );

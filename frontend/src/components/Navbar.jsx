@@ -10,7 +10,15 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-md" data-bs-theme="dark">
       <div className="container-lg">
         <div className="navbar-brand">
-          <img src="../assets/images/logo.png" alt="Galería de Arte" id="myBrand" />
+        <Link to="/" className="brand-container">
+  <img
+    src="/images/logo.png"
+    alt="Galería de Arte"
+    id="myBrand"
+  />
+  <span>Galería de arte</span>
+</Link>
+
         </div>
         <button
           className="navbar-toggler"
