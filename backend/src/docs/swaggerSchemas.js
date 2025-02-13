@@ -2,16 +2,23 @@ const schemas = {
   Error: {
     type: 'object',
     properties: {
-      message: {type: 'string', example: 'Error interno del servidor'}
-    }
+      message: { type: 'string', example: 'Error interno del servidor' },
+    },
   },
-  User: {
+  RegisterRequest: {
     type: 'object',
     properties: {
-      id: {type: 'integer', example: 1 },
-      email: {type: 'string', example: 'srajuanita@mail.com'},
-      nombre: {type: 'string', example: 'Juana'},
-      apellido: {type: 'string', example: 'Pérez'}
-    }
-  }
-}
+      email: {
+        type: 'string',
+        format: 'email',
+        example: 'srajuanita@mail.com',
+      },
+      password: { type: 'string', format: 'password', example: 'abcdefgh' },
+      nombre: { type: 'string', example: 'Juana' },
+      apellido: { type: 'string', example: 'Pérez' },
+    },
+    required: ['email', 'password', 'nombre', 'apellido'],
+  },
+};
+
+module.exports = schemas;

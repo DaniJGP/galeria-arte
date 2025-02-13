@@ -21,6 +21,6 @@ app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Documentación Swagger
-app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(specs));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 module.exports = app;

@@ -2,18 +2,18 @@ const { addSwaggerPath } = require('../swaggerConfig');
 
 addSwaggerPath({
   path: '/api/users/register',
-  method: 'POST',
+  method: 'post',
   config: {
     summary: 'Registra un usuario',
     tags: ['User'],
+    requestBody: { $ref: '#/components/schemas/RegisterRequest' },
     responses: {
       201: {
         description: 'Registra un usuario',
         content: {
           'apllication/json': {
-            schema: {
-              $ref: '#/components/schemas/User',
-            },
+            type: 'object',
+            properties: { message: 'Usuario registrado' },
           },
         },
       },
@@ -49,5 +49,4 @@ addSwaggerPath({
       },
     },
   },
-  what: {},
 });

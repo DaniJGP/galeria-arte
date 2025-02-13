@@ -19,6 +19,12 @@ const options = {
       },
       schemas,
     },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+        description: 'API en entorno de desarrollo',
+      },
+    ],
     paths: {},
   },
   apis: [],
