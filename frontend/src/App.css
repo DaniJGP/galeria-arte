@@ -15,11 +15,25 @@ body {
   flex-direction: column;
 }
 
-.zen-dots-regular {
-    font-family: "Zen Dots", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;  
+}
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;  
+}
+
+footer {
+  margin-top: auto; 
+  background-color: #222;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
 
 .home {
   flex: 1;
@@ -98,14 +112,14 @@ body {
 }
 
 .admin-content {
-  margin-left: 250px; /* Ajusta según el ancho del sidebar */
+  margin-left: 250px;
   padding: 20px;
   flex-grow: 1;
 }
 
 .min-view-height {
     min-height: calc( 100vh - 58px - 201px);
-  }
+}
 
 @media (max-width: 1024px) {
   .product-card {
