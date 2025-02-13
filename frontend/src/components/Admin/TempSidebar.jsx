@@ -5,6 +5,9 @@ import "./Sidebar.css";
 const Sidebar = () => {
   return (
     <aside className="sidebar">
+      <Link to="/" className="back-to-store-btn">
+        🛍 Volver a la Tienda
+      </Link>
       <h2>Admin Panel</h2>
       <nav>
         <ul>
