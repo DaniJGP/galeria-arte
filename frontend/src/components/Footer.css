@@ -42,3 +42,7 @@
   .social-media a:hover {
     text-decoration: underline;
   }
+  .footer-section p {
+    color: white;
+  }
+  

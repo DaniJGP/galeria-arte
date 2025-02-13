@@ -5,7 +5,9 @@ import './ProductCard.css';
 const ProductCard = ({ id, title, author, price, image }) => {
   return (
     <div className="product-card">
-      <img src={image} alt={title} />
+      <div className="image-container">
+        <img src={image} alt={title} />
+      </div>
       <h2>{title}</h2>
       <p>{author}</p>
       <p>{price}</p>

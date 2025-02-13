@@ -37,6 +37,7 @@ const AuthProvider = ({ children }) => {
         nombre: data.nombre,
         apellido: data.apellido,
         email: data.email,
+        rol: data.rol,
       });
     } catch (error) {
       console.error("Error en login:", error.message);
@@ -49,7 +50,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, handleLogin }}>
       {children}
     </AuthContext.Provider>
   );
