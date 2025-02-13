@@ -30,11 +30,11 @@ CREATE TABLE obras (
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   user_id INTEGER,
-  estado VARCHAR,
+  estado VARCHAR DEFAULT 'pendiente',
   precio_total INTEGER,
   direccion TEXT,
-  created_at TIMESTAMP,
-  updated_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
   CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
