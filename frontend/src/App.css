@@ -93,6 +93,15 @@ body {
   background: #cc7700;
 }
 
+.admin-layout {
+  display: flex;
+}
+
+.admin-content {
+  margin-left: 250px; /* Ajusta según el ancho del sidebar */
+  padding: 20px;
+  flex-grow: 1;
+}
 
 .min-view-height {
     min-height: calc( 100vh - 58px - 201px);

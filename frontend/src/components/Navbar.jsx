@@ -1,7 +1,11 @@
-import { Link } from 'react-router-dom';
-import './Navbar.css';
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import "./Navbar.css";
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+
   return (
     <nav className="navbar navbar-expand-md" data-bs-theme="dark">
       <div className="container-lg">
@@ -21,9 +25,21 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse text-center" id="navbarLinks">
           <div className="navbar-nav ms-3 me-auto">
-            <Link className="nav-link" to="/login">Login</Link>
-            <Link className="nav-link" to="/registro">Registro</Link>
             <Link className="nav-link" to="/">Tienda</Link>
+
+            {!user ? (
+              <>
+                <Link className="nav-link" to="/login">Login</Link>
+                <Link className="nav-link" to="/registro">Registro</Link>
+              </>
+            ) : (
+              <>
+                <Link className="nav-link" to="/profile">Perfil</Link>
+                <button className="btn btn-link nav-link" onClick={logout}>
+                  Logout
+                </button>
+              </>
+            )}
           </div>
           <div className="navbar-nav gap-2">
             <form className="d-flex" role="search">
@@ -42,8 +58,8 @@ const Navbar = () => {
               <i className="fa-solid fa-user fa-lg"></i>
             </Link>
             <Link to="/cart" className="nav-link">
-  <i className="fa-solid fa-cart-shopping fa-lg"></i>
-</Link>
+              <i className="fa-solid fa-cart-shopping fa-lg"></i>
+            </Link>
           </div>
         </div>
       </div>
