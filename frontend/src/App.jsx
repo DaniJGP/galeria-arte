@@ -20,8 +20,8 @@ import AuthProvider from "./context/AuthContext";
 import Terms from './pages/Terms';
 
 const PrivateRoute = ({ children, role }) => {
-  const { user } = useContext(AuthContext); 
-  if (!user || user.role !== role) {
+  const { user } = useContext(AuthContext);
+  if (!user || user?.rol !== role) {
     return <Navigate to="/login" />;
   }
   return children;
@@ -49,7 +49,7 @@ const App = () => (
           <Route
             path="/admin/*"
             element={
-              <PrivateRoute role="admin">
+              <PrivateRoute role="administrador">
                 <div className="admin-layout">
                   <Sidebar />
                   <div className="admin-content">

@@ -31,13 +31,13 @@ const AuthProvider = ({ children }) => {
         throw new Error(data.message);
       }
   
-      // Guardar usuario en el contexto, incluyendo el rol
+      // Guardar usuario en el contexto
       login({
         token: data.token,
         nombre: data.nombre,
         apellido: data.apellido,
         email: data.email,
-        role: data.role, // Asegúrate de que el backend te devuelva el rol
+        rol: data.rol,
       });
     } catch (error) {
       console.error("Error en login:", error.message);

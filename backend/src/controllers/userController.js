@@ -40,43 +40,43 @@ exports.registerUser = async (req, res) => {
 };
 
 // Iniciar sesión de usuario
-  exports.loginUser = async (req, res) => {
-    const { email, password } = req.body;
-  
-    try {
-      // Buscar el usuario por email
-      const user = await User.getByEmail(email);
-      if (!user) {
-        return res.status(400).json({ message: 'Credenciales incorrectas' });
-      }
-  
-      // Verificar la contraseña
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(401).json({ message: 'Credenciales incorrectas' });
-      }
-  
-      // Generar el token JWT
-      const token = jwt.sign(
-        { email: user.email, rol: user.rol }, // <-- Verifica que aquí no esté faltando info
-        process.env.JWT_SECRET,
-        { expiresIn: '1h' }
-      );
-  
-      // Enviar los datos correctos en la respuesta
-      res.json({
-        message: 'Inicio de sesión exitoso',
-        token,
-        nombre: user.nombre,
-        apellido: user.apellido,
-        email: user.email,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error al iniciar sesión' });
+exports.loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Buscar el usuario por email
+    const user = await User.getByEmail(email);
+    if (!user) {
+      return res.status(400).json({ message: 'Credenciales incorrectas' });
     }
-  };
-  
+
+    // Verificar la contraseña
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Credenciales incorrectas' });
+    }
+
+    // Generar el token JWT
+    const token = jwt.sign(
+      { email: user.email, rol: user.rol }, // <-- Verifica que aquí no esté faltando info
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    // Enviar los datos correctos en la respuesta
+    res.json({
+      message: 'Inicio de sesión exitoso',
+      token,
+      nombre: user.nombre,
+      apellido: user.apellido,
+      email: user.email,
+      rol: user.rol,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al iniciar sesión' });
+  }
+};
 
 // Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {
@@ -135,7 +135,10 @@ exports.updateUser = async (req, res) => {
       direccion,
     });
 
-    res.json({ message: 'Usuario actualizado correctamente', user: updatedUser });
+    res.json({
+      message: 'Usuario actualizado correctamente',
+      user: updatedUser,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error al actualizar el usuario' });
