@@ -53,7 +53,7 @@ exports.loginUser = async (req, res) => {
     // Verificar la contraseña
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ message: 'Credenciales incorrectas' });
+      return res.status(400).json({ message: 'Credenciales incorrectas' });
     }
 
     // Generar el token JWT
@@ -120,15 +120,17 @@ exports.getUser = async (req, res) => {
 
 // Actualizar datos del propio usuario
 exports.updateUser = async (req, res) => {
+  const { email } = req.user;
   const { nombre, apellido, telefono, direccion } = req.body;
   try {
-    const user = await User.getByEmail(req.user.email);
+    const user = await User.getByEmail(email);
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
     // Actualizar los datos del usuario
-    const updatedUser = await User.updateByEmail(req.user.email, {
+    const updatedUser = await User.updateSelf({
+      id: user.id,
       nombre,
       apellido,
       telefono,
