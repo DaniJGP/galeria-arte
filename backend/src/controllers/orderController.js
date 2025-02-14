@@ -15,7 +15,7 @@ exports.createUserOrder = async (req, res) => {
       precio_total,
       obras_id,
     });
-    res.json({
+    res.status(201).json({
       message: 'Orden de compra creada exitosamente',
       data: createdOrder,
     });

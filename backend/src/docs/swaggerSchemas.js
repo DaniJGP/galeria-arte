@@ -42,6 +42,20 @@ const schemas = {
       ancho: { type: 'integer', example: 60 },
     },
   },
+  Order: {
+    type: 'object',
+    properties: {
+      id: { type: 'integer', example: 1, minimum: 1 },
+      estado: { type: 'string', example: 'pendiente' },
+      precio_total: { type: 'integer', example: '2100' },
+      direccion: { type: 'string', example: 'High Street 713' },
+      obras_id: {
+        type: 'array',
+        items: { type: 'integer', example: 1 },
+        example: [1, 2],
+      },
+    },
+  },
 };
 
 module.exports = schemas;
