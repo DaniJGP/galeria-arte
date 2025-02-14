@@ -2,22 +2,26 @@ const schemas = {
   Error: {
     type: 'object',
     properties: {
-      message: { type: 'string', example: 'Error interno del servidor' },
+      message: { type: 'string', example: 'Mensaje de error' },
     },
   },
-  RegisterRequest: {
+  
+  User: {
     type: 'object',
     properties: {
+      id: { type: 'integer', example: 1 },
       email: {
         type: 'string',
         format: 'email',
-        example: 'srajuanita@mail.com',
+        example: 'johnsmith@mail.com',
       },
-      password: { type: 'string', format: 'password', example: 'abcdefgh' },
-      nombre: { type: 'string', example: 'Juana' },
-      apellido: { type: 'string', example: 'Pérez' },
+      password: { type: 'string', format: 'password', example: 'hunter2' },
+      nombre: { type: 'string', example: 'John' },
+      apellido: { type: 'string', example: 'Smith' },
+      direccion: { type: 'string', example: 'Fake Street 123' },
+      telefono: { type: 'string', example: '+56912345678' },
+      rol: { type: 'string', example: 'cliente' },
     },
-    required: ['email', 'password', 'nombre', 'apellido'],
   },
 };
 

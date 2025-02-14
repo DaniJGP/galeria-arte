@@ -63,3 +63,21 @@ exports.updateById = async ({
   return result.rows[0];
 };
 
+exports.updateSelf = async ({
+  id,
+  nombre,
+  apellido,
+  telefono,
+  direccion,
+}) => {
+  const result = await pool.query(
+    `UPDATE users SET
+      nombre = $1, apellido = $2, telefono = $3, direccion = $4
+     WHERE id = $5
+     RETURNING *;
+    `,
+    [nombre, apellido, telefono, direccion, id]
+  );
+  return result.rows[0];
+};
+
