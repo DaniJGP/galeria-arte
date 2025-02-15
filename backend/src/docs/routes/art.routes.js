@@ -7,13 +7,13 @@ addSwaggerPath({
     summary: 'Obtiene obras de arte',
     tags: ['Art'],
     responses: {
-      201: {
+      200: {
         description: 'Lista de obras de arte',
         content: {
           'application/json': {
             schema: {
               type: 'array',
-              items: { $ref: '$ref: "#/components/schemas/Artwork' },
+              items: { $ref: '#/components/schemas/Artwork' },
             },
           },
         },

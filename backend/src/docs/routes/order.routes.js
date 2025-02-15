@@ -165,7 +165,7 @@ addSwaggerPath({
         in: 'path',
         required: true,
         description: 'La ID de la orden de compra',
-        schema: { $ref: '#/components/schemas/Orden/properties/id' },
+        schema: { $ref: '#/components/schemas/Order/properties/id' },
       },
     ],
     responses: {
