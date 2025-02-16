@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS obras (
 CREATE TABLE IF NOT EXISTS orders (
   id SERIAL PRIMARY KEY,
   user_id INTEGER,
-  estado VARCHAR DEFAULT 'pendiente',
-  precio_total INTEGER,
+  estado VARCHAR(20) DEFAULT 'pendiente',
+  precio_total DECIMAL(10, 2) NOT NULL,
   direccion TEXT,
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP DEFAULT NOW(),
