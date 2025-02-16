@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE users (
   updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE obras (
+CREATE TABLE IF NOT EXISTS obras (
   id SERIAL PRIMARY KEY,
   estado VARCHAR(20) NOT NULL DEFAULT 'disponible',
   nombre VARCHAR(255) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE obras (
   updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
   id SERIAL PRIMARY KEY,
   user_id INTEGER,
   estado VARCHAR DEFAULT 'pendiente',
@@ -38,7 +38,7 @@ CREATE TABLE orders (
   CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
-CREATE TABLE orders_obra (
+CREATE TABLE IF NOT EXISTS orders_obra (
   id SERIAL PRIMARY KEY,
   order_id INTEGER,
   obra_id INTEGER,

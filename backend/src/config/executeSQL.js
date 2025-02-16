@@ -1,5 +1,3 @@
-const fs = require('node:fs/promises');
-
 const executeSQL = async (pool, path) => {
   const client = await pool.connect();
   try {

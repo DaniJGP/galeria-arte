@@ -1,10 +1,12 @@
 {
   "name": "backend",
+  "private": "true",
   "version": "1.0.0",
   "main": "./index.js",
   "scripts": {
     "test": "jest",
     "dev": "node index.js",
+    "initdb": "node src/config/initdb.js",
     "start": "node index.js"
   },
   "author": "",
