@@ -37,7 +37,7 @@ const createArt = async (req, res) => {
     ancho,
   } = req.body;
   try {
-    await Art.create({
+    const artwork = await Art.create({
       nombre,
       autor,
       precio,
@@ -48,9 +48,12 @@ const createArt = async (req, res) => {
       alto,
       ancho,
     });
-    res.status(201).json({ message: 'Obra de arte creada exitosamente' });
+    res
+      .status(201)
+      .json({ message: 'Obra de arte creada exitosamente', data: artwork });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: 'Error al agregar la obra' });
   }
 };
 
@@ -84,6 +87,7 @@ const updateArt = async (req, res) => {
     });
     res.json({ message: 'Obra de arte actualizada exitosamente' });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -91,10 +95,14 @@ const updateArt = async (req, res) => {
 const deleteArt = async (req, res) => {
   const { id } = req.params;
   try {
-    await Art.deleteById(id);
-    res.json({ message: 'Obra de arte eliminada exitosamente' });
+    const deletedArt = await Art.deleteById(id);
+    res.json({
+      message: 'Obra de arte eliminada exitosamente',
+      data: deletedArt,
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
 
