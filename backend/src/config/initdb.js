@@ -1,6 +1,8 @@
 const path = require('node:path');
 const { pool } = require('./db');
 const { executeSQL } = require('./executeSQL');
+const { createDatabase } = require('./createDatabase');
+
 require('dotenv/config');
 
 // En desarrollo crea db, tablas y datos iniciales;
