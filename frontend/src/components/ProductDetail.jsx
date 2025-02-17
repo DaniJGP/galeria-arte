@@ -54,7 +54,7 @@ const ProductDetail = () => {
   return (
     <div className="min-view-height d-flex justify-content-center align-items-center gap-5">
       <div>
-        <img className="product-detail-img" src={product.img_url} alt={product.title} />
+        <img className="product-detail-img" src={`${import.meta.env.VITE_API_URL}/${product.img_url}`} alt={product.title} />
       </div>
       <div className="product-detail text-left">
         <h2 className="fs-2">{product.nombre}</h2>
