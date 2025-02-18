@@ -1,10 +1,12 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import './ProductDetail.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getProductById } from '../helpers/productsAPI';
+import { AuthContext } from '../context/AuthContext';
 
 const ProductDetail = () => {
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const { dispatch } = useCart();
   const navigate = useNavigate(); // Hook para la navegación
@@ -54,7 +56,11 @@ const ProductDetail = () => {
   return (
     <div className="product-detail-container">
       <div className="product-detail-image-wrapper">
-        <img className="product-detail-img" src={`${import.meta.env.VITE_API_URL}/${product.img_url}`} alt={product.title} />
+        <img
+          className="product-detail-img"
+          src={`${import.meta.env.VITE_API_URL}/${product.img_url}`}
+          alt={product.title}
+        />
       </div>
       <div className="product-detail-info">
         <h2 className="fs-2">{product.nombre}</h2>
@@ -62,19 +68,22 @@ const ProductDetail = () => {
         <div className="text-secondary">
           <p className="m-0">{product.categoria}</p>
           <p className="m-0">{product.tecnica}</p>
-          <p className="m-0">{product.alto} x {product.ancho} cm</p>
+          <p className="m-0">
+            {product.alto} x {product.ancho} cm
+          </p>
         </div>
         <p className="fw-bold my-3 fs-3">${product.precio}</p>
         <p>{product.descripcion}</p>
         <div className="d-grid">
-          <button onClick={handleAddToCart} className="btn btn-primary fs-5 rounded-0 py-3">
+          {user ? (<button onClick={handleAddToCart} className="btn btn-primary fs-5 rounded-0 py-3">
             Comprar
-          </button>
+          </button>) : (<p  className="btn btn-disabled fs-5 rounded-0 py-3">
+            Debes <Link to={'/login'}>ingresar</Link> para comprar
+          </p>)}
         </div>
       </div>
     </div>
   );
-  
 };
 
 export default ProductDetail;

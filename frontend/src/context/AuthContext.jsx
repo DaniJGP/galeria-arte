@@ -45,14 +45,9 @@ const AuthProvider = ({ children }) => {
       console.error("Error en login:", error.message);
     }
   };
-  
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
-  };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, handleLogin }}>
+    <AuthContext.Provider value={{ user, setUser, login, handleLogin }}>
       {children}
     </AuthContext.Provider>
   );

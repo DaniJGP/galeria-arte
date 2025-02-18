@@ -48,6 +48,7 @@
 
 .product-card button:hover {
   background-color: #0056b3;
+  border: none;
 }
 
 .product-card .image-container {
