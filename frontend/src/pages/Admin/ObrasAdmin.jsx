@@ -88,7 +88,7 @@ const ObrasAdmin = () => {
   };
   
   return (
-    <div className="admin-container">
+    <>
       <h2>Gestión de Obras</h2>
 
       <div className="form-container">
@@ -179,7 +179,7 @@ const ObrasAdmin = () => {
           </tbody>
         </table>
       )}
-    </div>
+    </>
   );
 };
 

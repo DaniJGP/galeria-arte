@@ -20,6 +20,9 @@ const Sidebar = () => {
           <li>
             <Link to="/admin/ordenes">Órdenes de Compra</Link>
           </li>
+          <li>
+            <Link to="/admin/usuarios">Usuarios</Link>
+          </li>
         </ul>
       </nav>
     </aside>
