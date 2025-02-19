@@ -39,7 +39,7 @@ const Cart = () => {
   if (!user) return <NotLoggedIn />;
 
   return (
-    <div className="container">
+
       <div className="cart px-4 py-3">
         <h2 className="mb-5 fw-bold text-center">Carrito de Compras</h2>
         <div className="d-flex flex-column">
@@ -63,12 +63,12 @@ const Cart = () => {
               </div>
             ))
           )}
-          <div className="d-flex justify-content-evenly m-3">
-            <Link to="/" className="btn btn-primary px-4 py-3">
+          <div className="d-flex justify-content-evenly m-3 gap-3">
+            <Link to="/" className="btn btn-primary rounded-1 px-5 py-3">
               Seguir comprando
             </Link>
             <button
-              className="btn btn-success px-4 py-3"
+              className="btn btn-success rounded-1 px-5 py-3"
               disabled={cart.length === 0}
               onClick={handleSubmit}
             >
@@ -77,7 +77,6 @@ const Cart = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
