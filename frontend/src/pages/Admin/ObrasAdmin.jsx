@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import fetchWithAuth from "../../helpers/fetchHelper";
-import "./ObraForm.css";
+
+import React, { useEffect, useState } from 'react';
+import fetchWithAuth from '../../helpers/fetchHelper';
+import './ObraForm.css';
 
 const ObrasAdmin = () => {
   const [obras, setObras] = useState([]);
@@ -8,10 +9,11 @@ const ObrasAdmin = () => {
   const [error, setError] = useState(null);
   const [obraEdit, setObraEdit] = useState(null);
   const [editFormData, setEditFormData] = useState({
-    nombre: "",
-    autor: "",
-    precio: "",
-    img_url: "", 
+    nombre: '',
+    autor: '',
+    precio: '',
+    precio: '',
+    img_url: '', 
   });
 
   useEffect(() => {
@@ -30,14 +32,14 @@ const ObrasAdmin = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("¿Estás seguro de eliminar esta obra?")) return;
+    if (!window.confirm('¿Estás seguro de eliminar esta obra?')) return;
     try {
       await fetchWithAuth(`${import.meta.env.VITE_API_URL}/admin/artworks/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
       setObras(obras.filter((obra) => obra.id !== id));
     } catch (err) {
-      alert("Error eliminando obra");
+      alert('Error eliminando obra');
     }
   };
 
@@ -47,10 +49,16 @@ const ObrasAdmin = () => {
       nombre: obra.nombre,
       autor: obra.autor,
       precio: obra.precio,
-      img_url: obra.img_url, // ✅ Cargar la imagen al editar
+      img_url: obra.img_url,
+      descripcion: obra.descripcion,
+      categoria: obra.categoria,
+      tecnica: obra.tecnica,
+      alto: obra.alto,
+      ancho: obra.ancho,
     });
 
-    document.getElementById("editForm").scrollIntoView({ behavior: "smooth" });
+    // Hacer scroll hacia el formulario de edición automáticamente
+    document.getElementById('editForm').scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleEditChange = (e) => {
@@ -73,23 +81,23 @@ const ObrasAdmin = () => {
           ? `${import.meta.env.VITE_API_URL}/admin/artworks/${obraEdit.id}`
           : `${import.meta.env.VITE_API_URL}/admin/artworks`,
         {
-          method: obraEdit ? "PUT" : "POST",
-          headers: { "Content-Type": "application/json" },
+          method: obraEdit ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newObra),
         }
       );
 
-      console.log("Respuesta del servidor:", response);
+      console.log('Respuesta del servidor:', response);
       fetchObras();
       setObraEdit(null);
     } catch (err) {
-      console.error("Error en handleSave:", err);
-      alert("Error al guardar la obra.");
+      console.error('Error en handleSave:', err);
+      alert('Error al guardar la obra.');
     }
   };
 
   return (
-    <div className="admin-container">
+    <>
       <h2>Gestión de Obras</h2>
 
       <div className="form-container">
@@ -100,8 +108,13 @@ const ObrasAdmin = () => {
             handleSave({
               nombre: e.target.nombre.value,
               autor: e.target.autor.value,
-              precio: e.target.precio.value,
-              img_url: e.target.img_url.value, // ✅ Agregar img_url al guardar
+              precio: parseFloat(e.target.precio.value),
+              img_url: e.target.img_url.value,
+              descripcion: e.target.descripcion.value,
+              categoria: e.target.categoria.value,
+              tecnica: e.target.tecnica.value,
+              alto: parseInt(e.target.alto.value),
+              ancho: parseInt(e.target.ancho.value),
             });
             e.target.reset();
           }}
@@ -111,7 +124,12 @@ const ObrasAdmin = () => {
           <input type="text" name="nombre" placeholder="Nombre" required />
           <input type="text" name="autor" placeholder="Autor" required />
           <input type="number" name="precio" placeholder="Precio" required />
-          <input type="text" name="img_url" placeholder="URL de la Imagen" required /> {/* ✅ Agregado campo */}
+          <input type="text" name="img_url" placeholder="URL de la imagen" />
+          <input type="text" name="descripcion" placeholder="Descripción" />
+          <input type="text" name="categoria" placeholder="Categoría" />
+          <input type="text" name="tecnica" placeholder="Técnica" />
+          <input type="number" name="alto" placeholder="Alto" />
+          <input type="number" name="ancho" placeholder="Ancho" />
           <button type="submit">Agregar</button>
         </form>
 
@@ -153,10 +171,38 @@ const ObrasAdmin = () => {
             <input
               type="text"
               name="img_url"
-              placeholder="URL de la Imagen"
               value={editFormData.img_url}
               onChange={handleEditChange}
-              required
+            />
+                      <input
+              type="text"
+              name="descripcion"
+              value={editFormData.descripcion}
+              onChange={handleEditChange}
+            />
+                      <input
+              type="text"
+              name="categoria"
+              value={editFormData.categoria}
+              onChange={handleEditChange}
+            />
+                      <input
+              type="text"
+              name="tecnica"
+              value={editFormData.tecnica}
+              onChange={handleEditChange}
+            />
+                      <input
+              type="text"
+              name="alto"
+              value={editFormData.alto}
+              onChange={handleEditChange}
+            />
+                      <input
+              type="number"
+              name="ancho"
+              value={editFormData.ancho}
+              onChange={handleEditChange}
             />
             {editFormData.img_url && <img src={editFormData.img_url} alt="Vista previa" className="preview-img" />}
             <button type="submit">Guardar Cambios</button>
@@ -197,7 +243,7 @@ const ObrasAdmin = () => {
           </tbody>
         </table>
       )}
-    </div>
+    </>
   );
 };
 
