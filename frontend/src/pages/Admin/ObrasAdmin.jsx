@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import fetchWithAuth from '../../helpers/fetchHelper';
 import './ObraForm.css';
@@ -11,6 +12,8 @@ const ObrasAdmin = () => {
     nombre: '',
     autor: '',
     precio: '',
+    precio: '',
+    img_url: '', 
   });
 
   useEffect(() => {
@@ -63,14 +66,14 @@ const ObrasAdmin = () => {
   };
 
   const handleSave = async (newObra) => {
-    console.log('Datos enviados al backend:', newObra); // 📌 Verifica los datos
+    console.log("Datos enviados al backend:", newObra);
 
-    if (!newObra.nombre || !newObra.autor || !newObra.precio) {
-      alert('Todos los campos son obligatorios.');
+    if (!newObra.nombre || !newObra.autor || !newObra.precio || !newObra.img_url) {
+      alert("Todos los campos son obligatorios, incluyendo la URL de la imagen.");
       return;
     }
 
-    newObra.precio = parseFloat(newObra.precio); // Asegurar que precio es número
+    newObra.precio = parseFloat(newObra.precio);
 
     try {
       const response = await fetchWithAuth(
@@ -84,7 +87,7 @@ const ObrasAdmin = () => {
         }
       );
 
-      console.log('Respuesta del servidor:', response); // 📌 Verifica respuesta
+      console.log('Respuesta del servidor:', response);
       fetchObras();
       setObraEdit(null);
     } catch (err) {
@@ -113,7 +116,7 @@ const ObrasAdmin = () => {
               alto: parseInt(e.target.alto.value),
               ancho: parseInt(e.target.ancho.value),
             });
-            e.target.reset(); // Limpiar el formulario después de agregar
+            e.target.reset();
           }}
           className="obra-form add-form"
         >
@@ -121,88 +124,90 @@ const ObrasAdmin = () => {
           <input type="text" name="nombre" placeholder="Nombre" required />
           <input type="text" name="autor" placeholder="Autor" required />
           <input type="number" name="precio" placeholder="Precio" required />
-          <input type="text" name="img_url" placeholder="URL" />
+          <input type="text" name="img_url" placeholder="URL de la imagen" />
           <input type="text" name="descripcion" placeholder="Descripción" />
           <input type="text" name="categoria" placeholder="Categoría" />
           <input type="text" name="tecnica" placeholder="Técnica" />
           <input type="number" name="alto" placeholder="Alto" />
           <input type="number" name="ancho" placeholder="Ancho" />
-
           <button type="submit">Agregar</button>
         </form>
 
         {/* Formulario de edición de obra */}
-        <form
-          id="editForm"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSave(editFormData);
-          }}
-          className="obra-form edit-form"
-        >
-          <h3>Editar Obra</h3>
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Nombre"
-            value={editFormData.nombre}
-            onChange={handleEditChange}
-            required
-          />
-          <input
-            type="text"
-            name="autor"
-            placeholder="Autor"
-            value={editFormData.autor}
-            onChange={handleEditChange}
-            required
-          />
-          <input
-            type="number"
-            name="precio"
-            placeholder="Precio"
-            value={editFormData.precio}
-            onChange={handleEditChange}
-            required
-          />
-          <input
-            type="text"
-            name="img_url"
-            value={editFormData.img_url}
-            onChange={handleEditChange}
-          />
-                    <input
-            type="text"
-            name="descripcion"
-            value={editFormData.descripcion}
-            onChange={handleEditChange}
-          />
-                    <input
-            type="text"
-            name="categoria"
-            value={editFormData.categoria}
-            onChange={handleEditChange}
-          />
-                    <input
-            type="text"
-            name="tecnica"
-            value={editFormData.tecnica}
-            onChange={handleEditChange}
-          />
-                    <input
-            type="text"
-            name="alto"
-            value={editFormData.alto}
-            onChange={handleEditChange}
-          />
-                    <input
-            type="number"
-            name="ancho"
-            value={editFormData.ancho}
-            onChange={handleEditChange}
-          />
-          <button type="submit">Guardar Cambios</button>
-        </form>
+        {obraEdit && (
+          <form
+            id="editForm"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSave(editFormData);
+            }}
+            className="obra-form edit-form"
+          >
+            <h3>Editar Obra</h3>
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Nombre"
+              value={editFormData.nombre}
+              onChange={handleEditChange}
+              required
+            />
+            <input
+              type="text"
+              name="autor"
+              placeholder="Autor"
+              value={editFormData.autor}
+              onChange={handleEditChange}
+              required
+            />
+            <input
+              type="number"
+              name="precio"
+              placeholder="Precio"
+              value={editFormData.precio}
+              onChange={handleEditChange}
+              required
+            />
+            <input
+              type="text"
+              name="img_url"
+              value={editFormData.img_url}
+              onChange={handleEditChange}
+            />
+                      <input
+              type="text"
+              name="descripcion"
+              value={editFormData.descripcion}
+              onChange={handleEditChange}
+            />
+                      <input
+              type="text"
+              name="categoria"
+              value={editFormData.categoria}
+              onChange={handleEditChange}
+            />
+                      <input
+              type="text"
+              name="tecnica"
+              value={editFormData.tecnica}
+              onChange={handleEditChange}
+            />
+                      <input
+              type="text"
+              name="alto"
+              value={editFormData.alto}
+              onChange={handleEditChange}
+            />
+                      <input
+              type="number"
+              name="ancho"
+              value={editFormData.ancho}
+              onChange={handleEditChange}
+            />
+            {editFormData.img_url && <img src={editFormData.img_url} alt="Vista previa" className="preview-img" />}
+            <button type="submit">Guardar Cambios</button>
+          </form>
+        )}
       </div>
 
       {loading ? (
@@ -216,6 +221,7 @@ const ObrasAdmin = () => {
               <th>Nombre</th>
               <th>Autor</th>
               <th>Precio</th>
+              <th>Imagen</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -225,6 +231,9 @@ const ObrasAdmin = () => {
                 <td>{obra.nombre}</td>
                 <td>{obra.autor}</td>
                 <td>${obra.precio}</td>
+                <td>
+                  <img src={obra.img_url} alt="Obra" className="obra-img" /> {/* ✅ Mostrar imagen en la tabla */}
+                </td>
                 <td>
                   <button onClick={() => handleEdit(obra)}>Editar</button>
                   <button onClick={() => handleDelete(obra.id)}>Eliminar</button>
