@@ -30,7 +30,7 @@ const Home = () => {
               title={product.nombre}
               author={product.autor}
               price={product.precio}
-              image={product.img_url}
+              img_url={product.img_url}
             />
           ))
         )}

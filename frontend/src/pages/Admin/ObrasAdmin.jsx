@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import fetchWithAuth from "../../helpers/fetchHelper";
-import "./ObraForm.css"; 
+import "./ObraForm.css";
 
 const ObrasAdmin = () => {
   const [obras, setObras] = useState([]);
@@ -11,6 +11,7 @@ const ObrasAdmin = () => {
     nombre: "",
     autor: "",
     precio: "",
+    img_url: "", 
   });
 
   useEffect(() => {
@@ -46,9 +47,9 @@ const ObrasAdmin = () => {
       nombre: obra.nombre,
       autor: obra.autor,
       precio: obra.precio,
+      img_url: obra.img_url, // ✅ Cargar la imagen al editar
     });
 
-    // Hacer scroll hacia el formulario de edición automáticamente
     document.getElementById("editForm").scrollIntoView({ behavior: "smooth" });
   };
 
@@ -57,15 +58,15 @@ const ObrasAdmin = () => {
   };
 
   const handleSave = async (newObra) => {
-    console.log("Datos enviados al backend:", newObra); // 📌 Verifica los datos
-  
-    if (!newObra.nombre || !newObra.autor || !newObra.precio) {
-      alert("Todos los campos son obligatorios.");
+    console.log("Datos enviados al backend:", newObra);
+
+    if (!newObra.nombre || !newObra.autor || !newObra.precio || !newObra.img_url) {
+      alert("Todos los campos son obligatorios, incluyendo la URL de la imagen.");
       return;
     }
-  
-    newObra.precio = parseFloat(newObra.precio); // Asegurar que precio es número
-  
+
+    newObra.precio = parseFloat(newObra.precio);
+
     try {
       const response = await fetchWithAuth(
         obraEdit
@@ -77,8 +78,8 @@ const ObrasAdmin = () => {
           body: JSON.stringify(newObra),
         }
       );
-  
-      console.log("Respuesta del servidor:", response); // 📌 Verifica respuesta
+
+      console.log("Respuesta del servidor:", response);
       fetchObras();
       setObraEdit(null);
     } catch (err) {
@@ -86,7 +87,7 @@ const ObrasAdmin = () => {
       alert("Error al guardar la obra.");
     }
   };
-  
+
   return (
     <div className="admin-container">
       <h2>Gestión de Obras</h2>
@@ -100,8 +101,9 @@ const ObrasAdmin = () => {
               nombre: e.target.nombre.value,
               autor: e.target.autor.value,
               precio: e.target.precio.value,
+              img_url: e.target.img_url.value, // ✅ Agregar img_url al guardar
             });
-            e.target.reset(); // Limpiar el formulario después de agregar
+            e.target.reset();
           }}
           className="obra-form add-form"
         >
@@ -109,45 +111,57 @@ const ObrasAdmin = () => {
           <input type="text" name="nombre" placeholder="Nombre" required />
           <input type="text" name="autor" placeholder="Autor" required />
           <input type="number" name="precio" placeholder="Precio" required />
+          <input type="text" name="img_url" placeholder="URL de la Imagen" required /> {/* ✅ Agregado campo */}
           <button type="submit">Agregar</button>
         </form>
 
         {/* Formulario de edición de obra */}
-        <form
-          id="editForm"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSave(editFormData);
-          }}
-          className="obra-form edit-form"
-        >
-          <h3>Editar Obra</h3>
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Nombre"
-            value={editFormData.nombre}
-            onChange={handleEditChange}
-            required
-          />
-          <input
-            type="text"
-            name="autor"
-            placeholder="Autor"
-            value={editFormData.autor}
-            onChange={handleEditChange}
-            required
-          />
-          <input
-            type="number"
-            name="precio"
-            placeholder="Precio"
-            value={editFormData.precio}
-            onChange={handleEditChange}
-            required
-          />
-          <button type="submit">Guardar Cambios</button>
-        </form>
+        {obraEdit && (
+          <form
+            id="editForm"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSave(editFormData);
+            }}
+            className="obra-form edit-form"
+          >
+            <h3>Editar Obra</h3>
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Nombre"
+              value={editFormData.nombre}
+              onChange={handleEditChange}
+              required
+            />
+            <input
+              type="text"
+              name="autor"
+              placeholder="Autor"
+              value={editFormData.autor}
+              onChange={handleEditChange}
+              required
+            />
+            <input
+              type="number"
+              name="precio"
+              placeholder="Precio"
+              value={editFormData.precio}
+              onChange={handleEditChange}
+              required
+            />
+            <input
+              type="text"
+              name="img_url"
+              placeholder="URL de la Imagen"
+              value={editFormData.img_url}
+              onChange={handleEditChange}
+              required
+            />
+            {editFormData.img_url && <img src={editFormData.img_url} alt="Vista previa" className="preview-img" />}
+            <button type="submit">Guardar Cambios</button>
+          </form>
+        )}
       </div>
 
       {loading ? (
@@ -161,6 +175,7 @@ const ObrasAdmin = () => {
               <th>Nombre</th>
               <th>Autor</th>
               <th>Precio</th>
+              <th>Imagen</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -170,6 +185,9 @@ const ObrasAdmin = () => {
                 <td>{obra.nombre}</td>
                 <td>{obra.autor}</td>
                 <td>${obra.precio}</td>
+                <td>
+                  <img src={obra.img_url} alt="Obra" className="obra-img" /> {/* ✅ Mostrar imagen en la tabla */}
+                </td>
                 <td>
                   <button onClick={() => handleEdit(obra)}>Editar</button>
                   <button onClick={() => handleDelete(obra.id)}>Eliminar</button>
