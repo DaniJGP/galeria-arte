@@ -1,4 +1,4 @@
-.admin-container {
+.obras-container {
     text-align: center;
     padding: 20px;
   }
@@ -63,26 +63,27 @@
   }
   
   /* Estilos para la tabla de obras */
-  table {
+  .obras-table {
     width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
     background: white;
   }
   
-  th, td {
+  .obras-table th,
+  .obras-table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
   }
   
-  th {
+  .obras-table th {
     background: #007bff;
     color: white;
   }
   
   /* Estilos para los botones dentro de la tabla */
-  button {
+  .obras-table button {
     margin: 5px;
     padding: 5px 10px;
     border: none;
@@ -90,21 +91,21 @@
     border-radius: 5px;
   }
   
-  button:first-child {
+  .obras-table button:first-child {
     background: #28a745;
     color: white;
   }
   
-  button:first-child:hover {
+  .obras-table button:first-child:hover {
     background: #218838;
   }
   
-  button:last-child {
+  .obras-table button:last-child {
     background-color: #cc7700;
     color: white;
   }
   
-  button:last-child:hover {
+  .obras-table button:last-child:hover {
     background: #c82333;
   }
   

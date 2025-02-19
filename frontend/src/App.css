@@ -18,17 +18,18 @@ body {
 .app-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;  
+  min-height: 100vh;
 }
 
 .main-layout {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;  
+  flex-grow: 1;
+  align-items: center;
 }
 
 footer {
-  margin-top: auto; 
+  margin-top: auto;
   background-color: #222;
   color: white;
   padding: 10px 0;
@@ -117,8 +118,14 @@ footer {
   flex-grow: 1;
 }
 
+.btn-primary {
+  background-color: var(--secondary-blue);
+  border-color: var(--secondary-blue);
+}
+
+/* Actualizar con medida de navbar y footer*/
 .min-view-height {
-    min-height: calc( 100vh - 58px - 201px);
+  min-height: calc(100vh - 58px - 201px);
 }
 
 @media (max-width: 1024px) {

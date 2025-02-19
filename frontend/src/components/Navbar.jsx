@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import './Navbar.css';
@@ -6,6 +6,12 @@ import './Navbar.css';
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const rol = user?.rol;
+  const navigateTo = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigateTo('/');
+  };
 
   return (
     <nav className="navbar navbar-expand-md" data-bs-theme="dark">
@@ -44,42 +50,31 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link className="nav-link" to="/profile">
-                  Perfil
-                </Link>
                 <Link className="nav-link" to="/orders">
                   Mis compras
                 </Link>
-                <button className="btn btn-link nav-link" onClick={logout}>
+                <button className="nav-link" onClick={handleLogout} id="logoutButton">
                   Logout
                 </button>
               </>
             )}
-            {rol == 'administrador' ? (
-              <Link className="nav-link" to="/admin">
-                ADMIN PANEL
-              </Link>
-            ) : null}
           </div>
           <div className="navbar-nav gap-2">
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Buscar"
-                aria-label="Search"
-                data-bs-theme="light"
-              />
-              <button className="btn btn-dark" type="submit">
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </button>
-            </form>
-            <Link to="#" className="nav-link">
-              <i className="fa-solid fa-user fa-lg"></i>
+            <Link to="/profile" className="nav-link">
+            {user? (<span className='mx-2'>{user.email} </span>) : null}<i className="fa-solid fa-user fa-lg"></i>
             </Link>
             <Link to="/cart" className="nav-link">
               <i className="fa-solid fa-cart-shopping fa-lg"></i>
             </Link>
+            {rol == 'administrador' ? (
+              <Link
+                className="btn btn-outline-secondary rounded-1 ms-3 fw-bold"
+                id="adminLink"
+                to="/admin"
+              >
+                ADMIN PANEL
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>

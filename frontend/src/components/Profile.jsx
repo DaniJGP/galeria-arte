@@ -1,16 +1,20 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router';
+import NotLoggedIn from './NotLoggedIn';
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
 
-  if (!user) return <p>No has iniciado sesión</p>;
+  if (!user) return <NotLoggedIn />;
 
   return (
-    <div>
-      <h2>Bienvenido, {user.nombre} {user.apellido}</h2>
-      <p>Email: {user.email}</p>
-    </div>
+      <div className="d-flex flex-column">
+        <h2>
+          Bienvenido, {user.nombre} {user.apellido}
+        </h2>
+        <p>Email: {user.email}</p>
+      </div>
   );
 };
 

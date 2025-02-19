@@ -3,6 +3,8 @@ import { AuthContext } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import fetchWithAuth from '../helpers/fetchHelper';
 import './Cart.css';
+import NotLoggedIn from './NotLoggedIn';
+import { Link } from 'react-router';
 
 const Cart = () => {
   const { cart, dispatch } = useCart();
@@ -34,27 +36,47 @@ const Cart = () => {
     }
   };
 
+  if (!user) return <NotLoggedIn />;
+
   return (
-    <div className="cart">
-      <h2>Carrito de Compras</h2>
-      {cart.length === 0 ? (
-        <p>Tu carrito está vacío.</p>
-      ) : (
-        cart.map((item) => (
-          <div key={item.id} className="cart-item">
-            <img src={`${import.meta.env.VITE_API_URL}/${item.img_url}`} alt={item.nombre} style={{ width: '80px' }} />
-            <div>
-              <h4>{item.nombre}</h4>
-              <p>${item.precio}</p>
-              <button onClick={() => handleRemove(item)} className="btn btn-danger">
-                Eliminar
-              </button>
-            </div>
+
+      <div className="cart px-4 py-3">
+        <h2 className="mb-5 fw-bold text-center">Carrito de Compras</h2>
+        <div className="d-flex flex-column">
+          {cart.length === 0 ? (
+            <p>Tu carrito está vacío.</p>
+          ) : (
+            cart.map((item) => (
+              <div key={item.id} className="cart-item p-3 mb-3 rounded-2">
+                <img
+                  src={`${import.meta.env.VITE_API_URL}/${item.img_url}`}
+                  alt={item.nombre}
+                  style={{ width: '80px' }}
+                />
+                <div className="item-details">
+                  <h4>{item.nombre}</h4>
+                  <p>${item.precio}</p>
+                  <button onClick={() => handleRemove(item)} className="btn btn-danger">
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
+          <div className="d-flex justify-content-evenly m-3 gap-3">
+            <Link to="/" className="btn btn-primary rounded-1 px-5 py-3">
+              Seguir comprando
+            </Link>
+            <button
+              className="btn btn-success rounded-1 px-5 py-3"
+              disabled={cart.length === 0}
+              onClick={handleSubmit}
+            >
+              Realizar pedido
+            </button>
           </div>
-        ))
-      )}
-      <button onClick={() => handleSubmit()}>Realizar pedido</button>
-    </div>
+        </div>
+      </div>
   );
 };
 

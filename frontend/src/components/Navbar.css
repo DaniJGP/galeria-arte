@@ -3,23 +3,29 @@
 }
 
 #myBrand {
-  font-family: "Zen Dots", serif;
-    width: 50px;
-    height: auto;
-    margin-right: 10px;
+  font-family: 'Zen Dots', serif;
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
 }
 
 .brand-container {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
-
-#navbarLinks a {
-  font-family: "Inter", sans-serif;
+#navbarLinks a,
+#navbarLinks button {
+  font-family: 'Inter', sans-serif;
+  background: unset;
   color: var(--neutral-light);
 }
 
-#navbarLinks a:hover {
+#navbarLinks a:hover,
+#navbarLinks button:hover {
   color: var(--highlight-accent);
+}
+
+#logoutButton {
+  padding: 0;
 }

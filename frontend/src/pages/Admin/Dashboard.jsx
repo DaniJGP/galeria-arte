@@ -33,7 +33,7 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div className="admin-dashboard">
+    <div className="admin-dashboard d-flex flex-column align-items-center text-center">
       <h1>Dashboard - Bienvenido al Panel de Administración</h1>
       <div className="stats-grid">
         <div className="stat-card">
