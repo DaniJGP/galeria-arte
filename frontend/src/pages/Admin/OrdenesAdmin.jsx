@@ -37,7 +37,7 @@ const OrdersManagement = () => {
   return (
     <div className="orders-management">
       <h1>Gestión de Órdenes de Compra</h1>
-      <table className="orders-table">
+      <table className="admin-table">
         <thead>
           <tr>
             <th>ID</th>

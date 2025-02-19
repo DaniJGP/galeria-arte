@@ -155,7 +155,7 @@ const ObrasAdmin = () => {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <table>
+        <table className="obras-table">
           <thead>
             <tr>
               <th>Nombre</th>

@@ -4,15 +4,13 @@ import { AuthContext } from '../context/AuthContext';
 import './Navbar.css';
 
 const Navbar = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const rol = user?.rol;
-  let navigate = useNavigate();
+  const navigateTo = useNavigate();
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    navigate('/');
+  const handleLogout = async () => {
+    await logout();
+    navigateTo('/');
   };
 
   return (
@@ -52,13 +50,10 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link className="nav-link" to="/profile">
-                  Perfil
-                </Link>
                 <Link className="nav-link" to="/orders">
                   Mis compras
                 </Link>
-                <button className="nav-link" onClick={logout} id='logoutButton'>
+                <button className="nav-link" onClick={handleLogout} id="logoutButton">
                   Logout
                 </button>
               </>
@@ -66,13 +61,17 @@ const Navbar = () => {
           </div>
           <div className="navbar-nav gap-2">
             <Link to="/profile" className="nav-link">
-              <i className="fa-solid fa-user fa-lg"></i>
+            {user? (<span className='mx-2'>{user.email} </span>) : null}<i className="fa-solid fa-user fa-lg"></i>
             </Link>
             <Link to="/cart" className="nav-link">
               <i className="fa-solid fa-cart-shopping fa-lg"></i>
             </Link>
             {rol == 'administrador' ? (
-              <Link className="btn btn-outline-secondary rounded-1 ms-3 fw-bold" id="adminLink" to="/admin">
+              <Link
+                className="btn btn-outline-secondary rounded-1 ms-3 fw-bold"
+                id="adminLink"
+                to="/admin"
+              >
                 ADMIN PANEL
               </Link>
             ) : null}

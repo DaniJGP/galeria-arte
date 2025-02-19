@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import fetchWithAuth from '../helpers/fetchHelper';
+import './Orders.css'
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -14,10 +15,10 @@ const Orders = () => {
   }, [fetchWithAuth]);
 
   return (
-    <div className="container">
+    <div className="container-md d-flex flex-column align-items-center m-0">
       <h1 className="mt-5">Mis órdenes de compra</h1>
-      <table>
-        <thead>
+      <table className="table text-center table-hover table-borderless client-table">
+        <thead className="table-primary">
           <tr>
             <th>ID</th>
             <th>Total de pedido</th>
@@ -25,7 +26,7 @@ const Orders = () => {
             <th>Estado</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table">
           {isLoading
             ? null
             : orders?.map((order) => (
