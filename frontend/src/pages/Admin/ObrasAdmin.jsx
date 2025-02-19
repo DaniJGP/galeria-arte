@@ -105,7 +105,13 @@ const ObrasAdmin = () => {
             handleSave({
               nombre: e.target.nombre.value,
               autor: e.target.autor.value,
-              precio: e.target.precio.value,
+              precio: parseFloat(e.target.precio.value),
+              img_url: e.target.img_url.value,
+              descripcion: e.target.descripcion.value,
+              categoria: e.target.categoria.value,
+              tecnica: e.target.tecnica.value,
+              alto: parseInt(e.target.alto.value),
+              ancho: parseInt(e.target.ancho.value),
             });
             e.target.reset(); // Limpiar el formulario después de agregar
           }}
