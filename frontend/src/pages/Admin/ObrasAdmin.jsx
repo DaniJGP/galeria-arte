@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import fetchWithAuth from '../../helpers/fetchHelper';
 import './ObraForm.css';
@@ -12,8 +11,7 @@ const ObrasAdmin = () => {
     nombre: '',
     autor: '',
     precio: '',
-    precio: '',
-    img_url: '', 
+    img_url: '',
   });
 
   useEffect(() => {
@@ -66,10 +64,10 @@ const ObrasAdmin = () => {
   };
 
   const handleSave = async (newObra) => {
-    console.log("Datos enviados al backend:", newObra);
+    console.log('Datos enviados al backend:', newObra);
 
     if (!newObra.nombre || !newObra.autor || !newObra.precio || !newObra.img_url) {
-      alert("Todos los campos son obligatorios, incluyendo la URL de la imagen.");
+      alert('Todos los campos son obligatorios, incluyendo la URL de la imagen.');
       return;
     }
 
@@ -173,38 +171,50 @@ const ObrasAdmin = () => {
               name="img_url"
               value={editFormData.img_url}
               onChange={handleEditChange}
+              placeholder="URL de la imagen"
             />
-                      <input
+            <input
               type="text"
               name="descripcion"
               value={editFormData.descripcion}
               onChange={handleEditChange}
+              placeholder="Descripción"
             />
-                      <input
+            <input
               type="text"
               name="categoria"
               value={editFormData.categoria}
               onChange={handleEditChange}
+              placeholder="Categoría"
             />
-                      <input
+            <input
               type="text"
               name="tecnica"
               value={editFormData.tecnica}
               onChange={handleEditChange}
+              placeholder="Técnica"
             />
-                      <input
-              type="text"
+            <input
+              type="number"
               name="alto"
               value={editFormData.alto}
               onChange={handleEditChange}
+              placeholder='Alto'
             />
-                      <input
+            <input
               type="number"
               name="ancho"
               value={editFormData.ancho}
               onChange={handleEditChange}
+              placeholder="Ancho"
             />
-            {editFormData.img_url && <img src={editFormData.img_url} alt="Vista previa" className="preview-img" />}
+            {editFormData.img_url && (
+              <img
+                src={`${import.meta.env.VITE_API_URL}/${editFormData.img_url}`}
+                alt="Vista previa"
+                className="preview-img"
+              />
+            )}
             <button type="submit">Guardar Cambios</button>
           </form>
         )}
@@ -232,7 +242,11 @@ const ObrasAdmin = () => {
                 <td>{obra.autor}</td>
                 <td>${obra.precio}</td>
                 <td>
-                  <img src={obra.img_url} alt="Obra" className="obra-img" /> {/* ✅ Mostrar imagen en la tabla */}
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}/${obra.img_url}`}
+                    alt="Obra"
+                    className="obra-img"
+                  />
                 </td>
                 <td>
                   <button onClick={() => handleEdit(obra)}>Editar</button>
