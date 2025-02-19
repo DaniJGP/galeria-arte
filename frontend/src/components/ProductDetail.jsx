@@ -2,8 +2,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import './ProductDetail.css';
 import { useContext, useEffect, useState } from 'react';
-import { getProductById } from '../helpers/productsAPI';
 import { AuthContext } from '../context/AuthContext';
+import fetchWithAuth from '../helpers/fetchHelper';
 
 const ProductDetail = () => {
   const { user } = useContext(AuthContext);
@@ -19,17 +19,18 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const fetchedProduct = await getProductById(id);
-      setProduct(fetchedProduct);
+    const fetchProduct = async (id) => {
+      const data = await fetchWithAuth(`${import.meta.env.VITE_API_URL}/api/artworks/${id}`);
+      setProduct(data);
       setIsLoading(false);
     };
-    fetchProduct();
+    fetchProduct(id);
   }, [id]);
+
   // Muestra placeholders de bootstrap mientras se carga
   if (isLoading) {
     return (
-      <div className="min-view-height d-flex justify-content-center align-items-center gap-5">
+      <div className="d-flex justify-content-center align-items-center gap-5">
         <div className="placeholder-glow">
           <div
             className="placeholder product-detail-img"

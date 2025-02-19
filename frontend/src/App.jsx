@@ -12,6 +12,7 @@ import RegisterForm from './components/RegisterForm';
 import Dashboard from './pages/Admin/Dashboard';
 import ObrasAdmin from './pages/Admin/ObrasAdmin';
 import OrdenesAdmin from './pages/Admin/OrdenesAdmin';
+import UsuariosAdmin from './pages/Admin/UsuariosAdmin';
 import Sidebar from './components/Admin/TempSidebar';
 import Profile from './components/Profile';
 import './App.css';
@@ -49,6 +50,7 @@ const AdminLayout = () => (
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="obras" element={<ObrasAdmin />} />
         <Route path="ordenes" element={<OrdenesAdmin />} />
+        <Route path="usuarios" element={<UsuariosAdmin />} />
       </Routes>
     </div>
   </div>

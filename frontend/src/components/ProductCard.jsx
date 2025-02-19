@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './ProductCard.css';
 
-const ProductCard = ({ id, title, author, price, image }) => {
+const ProductCard = ({ id, title, author, price, img_url }) => {
   return (
     <div className="product-card">
       <div className="image-container">
-        <img src={`${import.meta.env.VITE_API_URL}/${image}`} alt={title} />
+      <img src={img_url} alt={title} />
       </div>
       <h2>{title}</h2>
       <p>{author}</p>

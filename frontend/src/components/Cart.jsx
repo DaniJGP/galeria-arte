@@ -21,7 +21,7 @@ const Cart = () => {
       let precio_total = 0.0;
       let obras_id = [];
       cart.forEach((item) => {
-        precio_total += item.precio;
+        precio_total += parseFloat(item.precio);
         obras_id.push(item.id);
       });
       const order = { direccion, precio_total, obras_id };
