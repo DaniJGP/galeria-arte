@@ -3,7 +3,7 @@ const { pool } = require('../config/db');
 exports.create = async ({ user_id, precio_total, direccion, obras_id }) => {
   const client = await pool.connect();
   try {
-    client.query('BEGIN');
+    await client.query('BEGIN');
     const result = await client.query(
       `INSERT INTO orders (
           user_id, precio_total, direccion
@@ -45,7 +45,7 @@ exports.create = async ({ user_id, precio_total, direccion, obras_id }) => {
     await client.query('ROLLBACK');
     throw error;
   } finally {
-    await client.release();
+    client.release();
   }
 };
 
@@ -69,11 +69,38 @@ exports.getAllByUserId = async (userId) => {
 };
 
 exports.cancelById = async (orderId) => {
-  const result = await pool.query(
-    `UPDATE orders SET estado = 'cancelada', updated_at = NOW() WHERE id = $1 RETURNING *`,
-    [orderId]
-  );
-  return { order: result.rows[0] };
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const result = await client.query(
+      `
+      UPDATE orders
+      SET estado = 'cancelada', updated_at = NOW()
+      WHERE id = $1 AND estado = 'pendiente'
+      RETURNING *`,
+      [orderId]
+    );
+    const order = result.rows[0];
+    if (!order) throw new Error('Error al cancelar la orden');
+    await client.query(
+      `
+      UPDATE obras
+      SET estado = 'disponible'
+      WHERE id IN (
+        SELECT obra_id
+        FROM orders_obra
+        WHERE order_id = $1
+      )`,
+      [order.id]
+    );
+    await client.query('COMMIT');
+    return order;
+  } catch (error) {
+    console.error(error);
+    await client.query('ROLLBACK');
+  } finally {
+    client.release();
+  }
 };
 
 exports.updateById = async (orderId, estado) => {

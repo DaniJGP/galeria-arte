@@ -44,6 +44,11 @@ exports.deleteById = async (id) => {
   return result.rows[0];
 };
 
+exports.freeByOrderId = async (orderId) => {
+  const result = await pool.query(`
+    `)
+}
+
 exports.updateById = async ({
   estado = 'disponible',
   nombre,
@@ -79,7 +84,3 @@ exports.updateById = async ({
   );
   return result.rows[0];
 };
-
-exports.buy = async (id) => {
-
-}
