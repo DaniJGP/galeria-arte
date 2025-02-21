@@ -20,7 +20,7 @@ const ObrasAdmin = () => {
 
   const fetchObras = async () => {
     try {
-      const data = await fetchWithAuth(`${import.meta.env.VITE_API_URL}/api/artworks`);
+      const data = await fetchWithAuth(`${import.meta.env.VITE_API_URL}/admin/artworks`);
       setObras(data);
     } catch (err) {
       setError(err.message);
@@ -232,6 +232,7 @@ const ObrasAdmin = () => {
               <th>Autor</th>
               <th>Precio</th>
               <th>Imagen</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -248,6 +249,7 @@ const ObrasAdmin = () => {
                     className="obra-img"
                   />
                 </td>
+                <td>{obra.estado}</td>
                 <td>
                   <button onClick={() => handleEdit(obra)}>Editar</button>
                   <button onClick={() => handleDelete(obra.id)}>Eliminar</button>

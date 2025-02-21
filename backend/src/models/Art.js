@@ -31,6 +31,11 @@ exports.getAll = async () => {
   return result.rows;
 };
 
+exports.getAvailable = async () => {
+  const result = await pool.query(`SELECT * FROM obras WHERE estado = 'disponible'`);
+  return result.rows;
+};
+
 exports.deleteById = async (id) => {
   const result = await pool.query(
     'DELETE FROM obras WHERE id = $1 RETURNING *',
@@ -38,6 +43,11 @@ exports.deleteById = async (id) => {
   );
   return result.rows[0];
 };
+
+exports.freeByOrderId = async (orderId) => {
+  const result = await pool.query(`
+    `)
+}
 
 exports.updateById = async ({
   estado = 'disponible',
