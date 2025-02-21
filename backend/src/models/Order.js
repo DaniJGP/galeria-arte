@@ -12,7 +12,6 @@ exports.create = async ({ user_id, precio_total, direccion, obras_id }) => {
       [user_id, precio_total, direccion]
     );
     const order = result.rows[0];
-    console.log('The id of the order is', order.id);
 
     // Lee el array con IDs de obras compradas y el order.id recién retornado
     // + Actualiza estado de obra
