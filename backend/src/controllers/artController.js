@@ -1,9 +1,17 @@
-const pool = require('../config/db');
 const Art = require('../models/Art');
 
 const getAllArt = async (req, res) => {
   try {
     const artworkArray = await Art.getAll();
+    res.json(artworkArray);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getAllAvailableArt = async (req, res) => {
+  try {
+    const artworkArray = await Art.getAvailable();
     res.json(artworkArray);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -106,4 +114,11 @@ const deleteArt = async (req, res) => {
   }
 };
 
-module.exports = { getAllArt, getArtById, createArt, updateArt, deleteArt };
+module.exports = {
+  getAllArt,
+  getArtById,
+  createArt,
+  updateArt,
+  deleteArt,
+  getAllAvailableArt,
+};

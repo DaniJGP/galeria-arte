@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS obras (
   alto SMALLINT,
   ancho SMALLINT,
   created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
+  updated_at TIMESTAMP DEFAULT NOW(),
+  CONSTRAINT estados CHECK (estado IN ('disponible', 'en reserva', 'vendida', 'no disponible'))
 );
 
 CREATE TABLE IF NOT EXISTS orders (
