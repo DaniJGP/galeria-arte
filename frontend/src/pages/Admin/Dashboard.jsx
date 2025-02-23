@@ -23,7 +23,7 @@ const AdminDashboard = () => {
 
        
         const totalSales = ordersArray
-          .filter(order => order.estado === "Enviado")
+          .filter(order => order.estado === "Enviado" || order.estado === "Entregado")
           .reduce((sum, order) => sum + parseFloat(order.precio_total || 0), 0);
 
     
