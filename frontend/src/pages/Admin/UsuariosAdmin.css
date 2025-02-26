@@ -155,12 +155,12 @@
     text-transform: uppercase;
   }
   
-  .rol-badge.admin {
+  .rol-badge.administrador {
     background-color: #ff9800;
     color: white;
   }
   
-  .rol-badge.user {
+  .rol-badge.cliente {
     background-color: #3498db;
     color: white;
   }

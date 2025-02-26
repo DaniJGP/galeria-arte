@@ -168,8 +168,8 @@ const UsuariosAdmin = () => {
                         onChange={handleChange}
                         className="edit-select"
                       >
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
+                        <option value="administrador">Admin</option>
+                        <option value="cliente">Cliente</option>
                       </select>
                     </td>
                   </>
